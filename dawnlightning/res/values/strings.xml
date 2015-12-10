@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">点亮</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="loading">加载中...</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_main">Main</string>
+
+	<item type="id" name="title_id"></item>
+	<item type="id" name="message_id"></item>
+	<item type="id" name="pictrue_id"></item>
+	<item type="id" name="comment_id"></item>
+	
+</resources>

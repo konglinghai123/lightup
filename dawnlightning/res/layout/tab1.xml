@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/maintab"
+  	 android:background="@drawable/bg_login1"
+     >
+      <com.zhy.view.TitleBar
+        android:id="@+id/TitleBar2"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"/>
+     <me.maxwin.view.XListView
+        android:id="@+id/newsListView"
+    
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="#00000000"
+	    android:fadingEdge="none"
+	    android:divider="@drawable/base_list_divider_drawable"
+        />
+
+</LinearLayout>

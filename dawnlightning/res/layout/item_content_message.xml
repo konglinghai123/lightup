@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+       <!-- 显示正文 -->
+
+        <RelativeLayout
+            android:id="@+id/layout_moodInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/showInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="nihao" 
+                android:textSize="18.0sp"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/checkInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/showInfo"
+                android:scrollbars="vertical"
+                android:layout_marginTop="2dp"
+                android:text="查看全文"
+                android:textColor="#6CA6CD"
+                android:textSize="15.0sp" />
+        </RelativeLayout>
+
+</LinearLayout>
