@@ -20,7 +20,7 @@ public class HttpConstants {
 	/*注册*/
 	public final static String HTTP_REGISTER=HTTP_REQUEST+"do.php?ac=register&registersubmit=true&username=!&password=@&password2=#&seccode=$&m_auth=%";
 	/*获取咨询详细*/
-	public final static String HTTP_CONSULT_DETAIL=HTTP_REQUEST+"space.php?do=bwzt&uid=!&id=@";
+	public final static String HTTP_CONSULT_DETAIL=HTTP_REQUEST+"space.php?do=bwzt&uid=!&id=@&page=#";
 	
 	/*获取防伪验证码*/
 	public final static String HTTP_FORMHASH=HTTP_REQUEST+"cp.php?ac=bwztformhash&m_auth=!";
@@ -64,4 +64,7 @@ public class HttpConstants {
 	
 	/*获取用户头像*/
 	public final static String HTTP_GET_USERICON=HTTP_REQUEST+"cp.php?ac=avatar&m_auth=!&get_avatar=true&avatar_size=middle";
+	
+	/*未读消息列表 */
+	public final static String HTTP_UNREAD_MESSAGE=HTTP_REQUEST+"space.php?do=notice&m_auth=!&page=@";
 }

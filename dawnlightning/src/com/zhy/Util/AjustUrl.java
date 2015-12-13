@@ -35,7 +35,7 @@ public class AjustUrl {
 			NewUrl=HttpConstants.HTTP_SELECTION;
 			break;
 		case HttpConstants.HTTP_CONSULT_DETAIL:
-			NewUrl=HttpConstants.HTTP_CONSULT_DETAIL.replace("!", params.get(0).getValue()).replace("@", params.get(1).getValue());
+			NewUrl=HttpConstants.HTTP_CONSULT_DETAIL.replace("!", params.get(0).getValue()).replace("@", params.get(1).getValue()).replace("#", params.get(2).getValue());
 			break;
 		case HttpConstants.HTTP_CONSULT_ALL:
 			NewUrl=HttpConstants.HTTP_CONSULT_ALL.replace("#", params.get(0).getValue());
@@ -51,6 +51,9 @@ public class AjustUrl {
 			break;
 		case HttpConstants.HTTP_GET_AVATAR:
 			NewUrl=HttpConstants.HTTP_GET_AVATAR.replace("!",  params.get(0).getValue());
+			break;
+		case HttpConstants.HTTP_UNREAD_MESSAGE:
+			NewUrl=HttpConstants.HTTP_UNREAD_MESSAGE.replace("!",  params.get(0).getValue()).replace("@", params.get(1).getValue());
 			break;
 		
 			

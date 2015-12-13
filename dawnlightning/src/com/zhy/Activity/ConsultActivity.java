@@ -1,27 +1,26 @@
 package com.zhy.Activity;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -34,6 +33,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -67,10 +67,10 @@ import com.zhy.Util.HttpUtil;
 import com.zhy.Util.ResultCallback;
 import com.zhy.Util.SdCardUtil;
 import com.zhy.Util.TimeUtil;
+import com.dawnlightning.Frag.ConsultFrag;
 import com.dawnlightning.ucqa.R;
 
-import com.zhy.upload.ProgressMultiPartEntity.ProgressListener;
-import com.zhy.upload.HttpStringResult;
+
 import com.zhy.upload.UploadPicture;
 import com.zhy.view.TitleBar;
 public class ConsultActivity extends BaseActivity {
@@ -105,7 +105,6 @@ public class ConsultActivity extends BaseActivity {
 		initobject();
 		initview();
 		getspinnerdate();
-		
 		initevent();
 	}
 	private void initobject(){
@@ -119,6 +118,7 @@ public class ConsultActivity extends BaseActivity {
 		bwztvisorid=(Spinner) findViewById(R.id.spinner2);
 		titlebar=(TitleBar) findViewById(R.id.TitleBar3);
 		subject=(EditText) findViewById(R.id.subject);
+		
 		age=(EditText) findViewById(R.id.age);
 		message=(EditText) findViewById(R.id.message1);
 		radiogroup=(RadioGroup) findViewById(R.id.sex);
@@ -146,7 +146,7 @@ public class ConsultActivity extends BaseActivity {
 						intent.putStringArrayListExtra("imageUrl", (ArrayList<String>) imageUrl);
 						intent.putExtra("position", arg2);
 						startActivity(intent);
-						//Toast.makeText(WriteMoodActivity.this, arg2+""+"集合的长度:"+allImages.size(), Toast.LENGTH_LONG).show();
+						
 					}
 				}
 
@@ -156,6 +156,9 @@ public class ConsultActivity extends BaseActivity {
 		IntentFilter intentFilter=new IntentFilter();
 		intentFilter.addAction("delImage");
 		registerReceiver(delBroadCast, intentFilter);
+		subject.setFocusable(true); 
+		subject.requestFocus();
+		
 	}
 	BroadcastReceiver delBroadCast=new BroadcastReceiver() {
 		
@@ -182,6 +185,7 @@ public class ConsultActivity extends BaseActivity {
 		private Context context;
 		private int ReuestCode;
 
+		@SuppressWarnings("deprecation")
 		public SelectPopuWindow(Context mContext, View parent,
 				final int requestCode) {
 			this.ReuestCode = requestCode;
@@ -458,14 +462,16 @@ public class ConsultActivity extends BaseActivity {
 	private void getspinnerdate(){
 	if(AppUtils.checkNetwork(context)==true){
 		List<NameValuePair> allP=new ArrayList<NameValuePair>();
+		initProgressDialog();
 		new	HttpUtil().doPost(HttpConstants.HTTP_SELECTION, allP, new ResultCallback() {
 
+			@SuppressWarnings("rawtypes")
 			@SuppressLint("NewApi")
 			@Override
 			public void getReslt(String result) {
 				// TODO 自动生成的方法存根
 				if(!result.isEmpty() ){
-					Log.e("Tag", result);
+				
 					try{
 					BaseBean b=JSON.parseObject(result, BaseBean.class);
 				
@@ -482,10 +488,7 @@ public class ConsultActivity extends BaseActivity {
 							
 							//
 							String s=iterator.next().toString();
-							Log.e("str", s);
-						
 							
-						
 							mapid.put(bwztid.getString(s),s);
 							listclass.add(bwztid.getString(s));
 						
@@ -502,14 +505,16 @@ public class ConsultActivity extends BaseActivity {
 						
 						
 					}else{
-						Toast.makeText(context, "获取分类失败", Toast.LENGTH_LONG).show();
+						Toast.makeText(context, "获取分类失败", Toast.LENGTH_SHORT).show();
+						finish();
 					
 					}}catch(Exception e){
 						
 					}
 				
 					}else{
-						Toast.makeText(context, "服务器响应失败", Toast.LENGTH_LONG).show();
+						Toast.makeText(context, "服务器响应失败", Toast.LENGTH_SHORT).show();
+						finish();
 						
 					}
 				
@@ -517,12 +522,12 @@ public class ConsultActivity extends BaseActivity {
 			
 			
 		});}else{
-			Toast.makeText(context, "网络连接断开", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "网络连接断开", Toast.LENGTH_SHORT).show();
 		}
 }
 	
 	public void showToast(String str){
-		Toast.makeText(ConsultActivity.this, str, Toast.LENGTH_LONG).show();
+		Toast.makeText(ConsultActivity.this, str, Toast.LENGTH_SHORT).show();
 	}
 	@Override
 	protected void onStart() {
@@ -587,7 +592,6 @@ public class ConsultActivity extends BaseActivity {
 		//selection.setOnItemSelectedListener(listener);    
 	}
 	//上传图片
-	@SuppressWarnings("static-access")
 	private void uploadpics(){
 		
 		HashMap<String,String> p=new HashMap<String, String>();
@@ -704,6 +708,8 @@ public class ConsultActivity extends BaseActivity {
 							}
 							Toast.makeText(ConsultActivity.this, "发布成功", Toast.LENGTH_LONG).show();
 							close();
+							ConsultFrag.newsListView.startRefresh();
+			                ConsultActivity.this.finish();
 							
 						}else{
 							Toast.makeText(ConsultActivity.this, "发布失败", Toast.LENGTH_LONG).show();
@@ -727,4 +733,11 @@ public class ConsultActivity extends BaseActivity {
 		unregisterReceiver(delBroadCast);
 		super.onDestroy();
 	}
+	 public boolean onKeyDown(int keyCode, KeyEvent event) {
+	        if (keyCode == KeyEvent.KEYCODE_BACK) {
+	           
+	           finish();
+	        }
+	        return super.onKeyDown(keyCode, event);
+	    }
 }

@@ -3,22 +3,26 @@ package com.zhy.Activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList; 
 
 import com.dawnlightning.ucqa.R;
 import com.zhy.Db.SharedPreferenceDb;
 
 import android.content.Intent; 
-import android.content.SharedPreferences; 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Parcelable; 
 import android.support.v4.view.PagerAdapter; 
 import android.support.v4.view.ViewPager; 
 import android.support.v4.view.ViewPager.OnPageChangeListener; 
+import android.view.KeyEvent;
 import android.view.LayoutInflater; 
 import android.view.View; 
-import android.view.View.OnClickListener;
 import android.view.ViewGroup; 
-import android.view.ViewGroup.LayoutParams; 
 import android.widget.Button; 
 import android.widget.ImageView; 
 import android.widget.LinearLayout;
@@ -41,8 +45,12 @@ public class GuideActivity extends Activity {
     private ViewGroup viewPoints; 
       
     private SharedPreferenceDb mySharedPreferenceDb;
+    
+    LayoutInflater inflater;
+  
+    
     /** Called when the activity is first created. */
-    @SuppressLint("InflateParams")
+    @SuppressLint({ "InflateParams", "NewApi" })
 	@Override
     public void onCreate(Bundle savedInstanceState) { 
         super.onCreate(savedInstanceState); 
@@ -55,11 +63,23 @@ public class GuideActivity extends Activity {
         	
          }else{
         //将要分页显示的View装入数组中 
-        LayoutInflater inflater = getLayoutInflater(); 
+        inflater= getLayoutInflater(); 
         pageViews = new ArrayList<View>(); 
-        pageViews.add(inflater.inflate(R.layout.viewpager_page1, null)); 
-        pageViews.add(inflater.inflate(R.layout.viewpager_page2, null)); 
-        pageViews.add(inflater.inflate(R.layout.viewpager_page3, null)); 
+        View view1=inflater.inflate(R.layout.viewpager_page1, null);
+       
+        view1.setBackgroundDrawable(getbmp(R.drawable.g1)); 
+        
+        View view2=inflater.inflate(R.layout.viewpager_page2, null);
+      
+        view2.setBackgroundDrawable(getbmp(R.drawable.g2)); 
+        
+        
+       
+        View view3=inflater.inflate(R.layout.viewpager_page3, null);
+        view3.setBackgroundDrawable(getbmp(R.drawable.g3)); 
+        pageViews.add(view1); 
+        pageViews.add(view2); 
+        pageViews.add(view3); 
         
         //创建imageviews数组，大小是要显示的图片的数量 
         imageViews = new ImageView[pageViews.size()]; 
@@ -222,14 +242,41 @@ public class GuideActivity extends Activity {
               
         } 
     }
+    private BitmapDrawable getbmp( int resId){
+    BitmapFactory.Options opt = new BitmapFactory.Options();
 
+    opt.inPreferredConfig = Bitmap.Config.RGB_565;
 
+    opt.inPurgeable = true;
+
+    opt.inInputShareable = true;
+
+    //获取资源图片
+	InputStream is = getResources().openRawResource(resId);
+
+    Bitmap bitmap = BitmapFactory.decodeStream(is,null, opt);
+
+    try {
+		is.close();
+	} catch (IOException e) {
+		// TODO 自动生成的 catch 块
+		e.printStackTrace();
+	}
+
+    return new BitmapDrawable(getResources(),bitmap);
+    }
 	@Override
 	protected void onDestroy() {
 		// TODO 自动生成的方法存根
 		super.onDestroy();
-		setContentView(R.layout.viewnull);
-		viewPager=null;
+		System.gc();
 	}    
+	 public boolean onKeyDown(int keyCode, KeyEvent event) {
+	        if (keyCode == KeyEvent.KEYCODE_BACK) {
+	           
+	           finish();
+	        }
+	        return super.onKeyDown(keyCode, event);
+	    }
  } 
 

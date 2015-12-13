@@ -1,7 +1,11 @@
 package com.zhy.Activity;
+import java.util.List;
+
+import cn.jpush.android.api.JPushInterface;
+
 import com.zhy.Intface.BaseInterfaces;
 import com.dawnlightning.ucqa.R;
-
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +29,7 @@ public  class BaseActivity extends FragmentActivity implements BaseInterfaces {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
 	}
 	
 	public void SkipActivityforClass(Context ctx,Class<?>cla){
@@ -45,7 +50,8 @@ public  class BaseActivity extends FragmentActivity implements BaseInterfaces {
 		
 	}
 	
-	 public void initProgressDialog() {
+	 @SuppressLint("InflateParams")
+	public void initProgressDialog() {
 
 	        if (loadbar == null) {
 	            loadbar = new Dialog(this, R.style.load_dialog);
@@ -66,7 +72,5 @@ public  class BaseActivity extends FragmentActivity implements BaseInterfaces {
 	            }
 	        }
 	    }
-	
-	
 	
 }

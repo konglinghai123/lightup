@@ -30,7 +30,9 @@ public class MainListViewAdapter extends BaseAdapter {
 		this.allComment=allComments;
 		layoutInflater=LayoutInflater.from(context);
 	}
-	
+	public MainListViewAdapter(){
+		
+	}
 	
 	@Override
 	public int getCount() {
@@ -65,10 +67,11 @@ public class MainListViewAdapter extends BaseAdapter {
 			viewHolder=new ViewHolder();
 			viewHolder.tvName=(TextView)layout.findViewById(R.id.pinglunName);
 			viewHolder.tvContent=(TextView)layout.findViewById(R.id.pinglunContent);
+			viewHolder.time=(TextView)layout.findViewById(R.id.time);
 		} else {
 			viewHolder = (ViewHolder) layout.getTag();
 		}
-		
+		viewHolder.time.setText(allComment.get(arg0).getDateline());
 		viewHolder.tvContent.setText(allComment.get(arg0).getMessage());
 		if(!allComment.get(arg0).getName().isEmpty()){
 			viewHolder.tvName.setText(allComment.get(arg0).getName());
@@ -84,6 +87,7 @@ public class MainListViewAdapter extends BaseAdapter {
 		
 		private TextView tvName;
 		private TextView tvContent;
+		private TextView time;
 		
 	}
 	

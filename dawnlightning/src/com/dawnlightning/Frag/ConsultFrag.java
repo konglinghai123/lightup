@@ -35,14 +35,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dawnlightning.ucqa.R;
 import com.zhy.Activity.ConsultActivity;
-import com.zhy.Activity.MainActivity_1;
 import com.zhy.Activity.NewsContentActivity;
-
 import com.zhy.Adapter.ConsultAdapter;
 import com.zhy.Bean.BaseBean;
 import com.zhy.Bean.ConsultBean;
 import com.zhy.Bean.ConsultMessageBean;
-import com.zhy.Db.SharedPreferenceDb;
 import com.zhy.Util.AppUtils;
 import com.zhy.Util.DB;
 import com.zhy.Util.HttpConstants;
@@ -52,7 +49,7 @@ import com.zhy.view.TitleBar;
 
 @SuppressLint("ValidFragment")
 public class ConsultFrag extends Fragment implements IXListViewRefreshListener, IXListViewLoadMore{
-	private XListView newsListView;
+	public static XListView newsListView;
 	private TitleBar titlebar;
 	private ConsultAdapter adapter;
 	
@@ -71,7 +68,8 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 	private HashMap<String, String> mapname = new HashMap<String, String>();//科室分类
 	List<String> listclass=new ArrayList();
 	List<String> listvisor=new ArrayList();
-	
+	private final static int EDIT_CONSULT=1;
+	private final static int EDIT_FINISH=0;
 	public ConsultFrag(String messagetype,Context context, ArrayList<String> userinfo,String PostUrl,List<NameValuePair> parms){
 		this.MessageType = messagetype;
 		this.context=context;
@@ -85,41 +83,41 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+	
 		init();
 		listclass.add("全部");
-		
-		
+		getspinnerdate();
+		getdata(currentpage,HttpConstants.HTTP_CONSULT_ALL, parms);
+		list = db.query(MessageType);
+		adapter.setList(list);
+		refreshDate = getDate();
+		Log.e("tag", "create");
 		
 	}
 	@Override
 	public void onResume() {
 		// TODO 自动生成的方法存根
 		super.onResume();
-		adapter.notifyDataSetChanged();
+	
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		initComponent();
-		getspinnerdate();
-		if(isLoad == false){
-			isLoad = true;
-			refreshDate = getDate();
+		
+		titlebar.showSelection(listclass, new select(), context);
+		
+			newsListView.NotRefreshAtBegin();
+			
 			newsListView.setRefreshTime(refreshDate);
 			//������ݿ��е����
-			list = db.query(MessageType);
-			adapter.setList(list);
-			adapter.notifyDataSetChanged();
+		
+			newsListView.setAdapter(adapter);
 			
-			newsListView.startRefresh();
 			
-		}else{
-			//newsListView.startRefresh();
-			newsListView.NotRefreshAtBegin();
-			//newsListView.stopLoadMore();
-		}
-		//getspinnerdate();
+			
+		
+		
 		System.out.println("onActivityCreate");
 		super.onActivityCreated(savedInstanceState);
 	}
@@ -128,7 +126,6 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		System.out.println("onCreateView");
 		return inflater.inflate(R.layout.tab1, null);
 	}
 
@@ -161,7 +158,7 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 				}
 			});
 		newsListView = (XListView) getView().findViewById(R.id.newsListView);
-		newsListView.setAdapter(adapter);
+	
 		newsListView.setPullRefreshEnable(this);
 		newsListView.setPullLoadEnable(this);
 		newsListView.setOnItemClickListener(new OnItemClickListener() {
@@ -178,6 +175,7 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 				
 				message.add(item.getBwztid());
 				message.add(item.getUid());
+				message.add(item.getReplynum());
 				Intent i=new Intent();
 				i.setClass(getActivity(), NewsContentActivity.class);
 				i.putStringArrayListExtra("message", message);
@@ -207,6 +205,7 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 	}
 	
 	public void resfreshdata(int currentpage,String url,List<NameValuePair> parms){
+		if(AppUtils.checkNetwork(context)==true){
 		parms.add(new BasicNameValuePair("page",String.valueOf(currentpage)));
 	
 		//showdialog();
@@ -225,7 +224,6 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 						JSONObject js=(JSONObject) JSON.parse(b.getData());
 						dt.setMessages(js.getString("list"));
 						dt.setCount(js.getIntValue("count"));
-						Log.e("Tag",dt.getMessages());
 						List<ConsultMessageBean> newlist=JSON.parseArray(dt.getMessages().toString(),ConsultMessageBean.class);		
 						
 				
@@ -264,9 +262,12 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 		
 	
 		
-		});}
+		});}else{
+			Toast.makeText(context, "网络连接失败", Toast.LENGTH_LONG).show();
+		}}
 		
 	public void moreloaddata(int currentpage,String url,List<NameValuePair> parms){
+		if(AppUtils.checkNetwork(context)==true){
 		List<NameValuePair> newparms=new ArrayList<NameValuePair>();
 		for(NameValuePair np: parms){
 			if(np.getName()!="page"){
@@ -302,7 +303,7 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 										for(int i=0;i<newlist.size();i++){
 											newlist.get(i).messagetype=MessageType;
 										}
-								 db.delete(MessageType);
+								 //db.delete(MessageType);
 								 db.insert(newlist);
 								
 								
@@ -327,7 +328,9 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 			
 		
 			
-			});
+			});}else{
+				Toast.makeText(context, "网络连接失败", Toast.LENGTH_LONG).show();
+			}
 }
 	class select implements OnItemSelectedListener{
 
@@ -336,18 +339,13 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 				long arg3) {
 			
 			if(arg2==0){
+				
 				parms.clear();
 				adapter.clearList();
-				adapter.notifyDataSetChanged();
 				MessageType="全部";
-				PostUrl=HttpConstants.HTTP_CONSULT_ALL;
-				refreshDate = getDate();
-				newsListView.setRefreshTime(refreshDate);
-				newsListView.startRefresh();
-			
-				// mViewPager.setCurrentItem(0);
-				 
-				 Log.e("SELECT", "0");
+				list = db.query(MessageType);
+				adapter.setList(list);
+				adapter.notifyDataSetChanged();
 				 
 			}else{
 				parms.clear();
@@ -367,10 +365,10 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 		@Override
 		public void onNothingSelected(AdapterView<?> arg0) {
 			parms.clear();
-			adapter.clearList();
-			adapter.notifyDataSetChanged();
 			MessageType="全部";
 			PostUrl=HttpConstants.HTTP_CONSULT_ALL;
+			refreshDate = getDate();
+		
 			
 		}
 		
@@ -381,13 +379,13 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 		//showdialog();
 		new	HttpUtil().doPost(HttpConstants.HTTP_SELECTION, allP, new ResultCallback() {
 
+			@SuppressWarnings("rawtypes")
 			@SuppressLint("NewApi")
 			@Override
 			public void getReslt(String result) {
 				// TODO 自动生成的方法存根
 				if(!result.isEmpty() ){
-					//close();
-					Log.e("Tag", result);
+			
 					BaseBean b=JSON.parseObject(result, BaseBean.class);
 				
 					if("0".equals(b.getCode().toString().trim())){
@@ -412,7 +410,7 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 						}
 					
 						
-						titlebar.showSelection(listclass, new select(), context);
+						
 						
 						
 					}else{
@@ -433,6 +431,7 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 		}
 }
 	private  Dialog loadbar = null;
+	@SuppressLint("InflateParams")
 	private void showdialog(){
 		
 		if (loadbar == null) {
@@ -453,6 +452,62 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 	            }
 	        }
 	    }
+
+	 public void getdata(int currentpage,String url,List<NameValuePair> parms){
+			if(AppUtils.checkNetwork(context)==true){
+				parms.add(new BasicNameValuePair("page",String.valueOf(currentpage)));
+			
+				//showdialog();
+			new	HttpUtil().doPost(url, parms, new ResultCallback(){
+
+					@SuppressLint("NewApi")
+					@Override
+					public void getReslt(String result) {
+						if(!result.isEmpty() ){
+							
+							BaseBean b=JSON.parseObject(result, BaseBean.class);
+							if("0".equals(b.getCode())){
+							
+								ConsultBean dt=new ConsultBean();
+								JSONObject js=(JSONObject) JSON.parse(b.getData());
+								dt.setMessages(js.getString("list"));
+								dt.setCount(js.getIntValue("count"));
+								List<ConsultMessageBean> newlist=JSON.parseArray(dt.getMessages().toString(),ConsultMessageBean.class);		
+								
+						
+								 if(newlist.size()!=0){
+										
+										for(int i=0;i<newlist.size();i++){
+											newlist.get(i).messagetype=MessageType;
+										}
+								     db.delete(MessageType);
+									 db.insert(newlist);
+									
+									
+								 }else{
+									
+										
+								 }
+							}else{
+								
+								
+							}
+						}else{
+							Toast.makeText(context, "服务器响应失败", Toast.LENGTH_LONG).show();
+							
+							
+							}
+						
+						
+					}
+				
+			
+			
+				
+				});}else{
+					Toast.makeText(context, "网络连接失败", Toast.LENGTH_LONG).show();
+				}
+	}
 
 
 }

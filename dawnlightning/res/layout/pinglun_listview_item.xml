@@ -1,34 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" 
+    android:orientation="vertical"
+    >
     	
     	     
-    	         
+    	  <RelativeLayout 
+    	      android:layout_width="match_parent"
+    	      android:layout_height="wrap_content"
+    	      android:layout_marginLeft="8dp"
+    	      android:layout_marginTop="10dp"
+    	      >
 	    <TextView 
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:id="@+id/pinglunName"
 	        android:text="张三"
 	        android:textColor="#104E8B"
-	      
-           
-            
+	         android:textSize="12sp"
 	        />
-	    <TextView 
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text=":"
-	        android:id="@+id/tvmh"
-	        android:paddingLeft="3dp"
-	        />
-	    <TextView 
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="veryGood!"
-	        android:paddingLeft="3dp"
-	        android:id="@+id/pinglunContent"
-	        android:singleLine="false"
-	        />
+	     <TextView
+	 	     android:id="@+id/pingluntitle"
+	 	     android:layout_width="wrap_content"
+	 	     android:layout_height="wrap_content"
+	 	     android:layout_above="@+id/time"
+	 	     android:layout_toRightOf="@+id/pinglunName"
+	 	     android:singleLine="false"
+	 	     android:text="veryGood!"
+	 	     android:textColor="#104E8B"
+	 	     android:textSize="12sp" 
+	 	     
+	 	     />
+	 	 <TextView
+	 	     android:id="@+id/time"
+	 	     android:layout_width="wrap_content"
+	 	     android:layout_height="wrap_content"
+	 	     android:layout_below="@+id/pinglunName"
+	 	     android:gravity="center_vertical|right"
+	 	     android:layout_marginLeft="2dp"
+	 	     android:text="2天前"
+	 	     android:textColor="@color/nomalGray"
+	 	     android:textSize="12sp" />
+
+	 	
+
+	    </RelativeLayout>
 	    
+
+    	  <TextView
+    	      android:layout_marginTop="5dp"
+    	      android:id="@+id/pinglunContent"
+    	      android:layout_width="wrap_content"
+    	      android:layout_height="wrap_content"
+    	      android:layout_marginLeft="8dp"
+    	      android:singleLine="false"
+    	      android:textSize="14sp"
+    	      android:text="veryGood!" />
+  
 </LinearLayout>

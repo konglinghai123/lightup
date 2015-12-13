@@ -40,7 +40,7 @@
     
    
      
-        <LinearLayout
+     <!--     <LinearLayout
                 android:id="@+id/pinglun"
                 android:layout_width="match_parent"
             	android:layout_height="32dp"	
@@ -78,10 +78,70 @@
                     android:clickable="false"
           	    ></Button>
             </LinearLayout>
-     
+     	-->
+     <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="40.0dip"
+    android:background="@drawable/bg_login1"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:layout_marginLeft="1.0px"
+        android:layout_marginRight="1.0px"
+        android:background="#ffc0c3c4" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="6.0dip"
+        android:paddingRight="6.0dip" >
+
     
+
+        <FrameLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0" >
+
+            <ImageView
+                android:id="@+id/action_write_comment"
+                style="@style/toolbar_action"
+                android:src="@drawable/ic_action_write" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0" >
+
+            <ImageView
+                android:id="@+id/action_view_comment"
+                style="@style/toolbar_action"
+                android:src="@drawable/ic_action_comment" />
+
+            <TextView
+                android:id="@+id/action_comment_count"
+                style="@style/toolbar_action_comment" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0" >
+
+            <ImageView
+                android:id="@+id/action_share"
+                style="@style/toolbar_action"
+                android:src="@drawable/ic_action_share" />
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>
      
    </LinearLayout>
-	
- 
+
+
 </RelativeLayout>

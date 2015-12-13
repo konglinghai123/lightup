@@ -12,14 +12,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dawnlightning.ucqa.R;
@@ -31,9 +25,6 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.StorageUtils;
-import com.zhy.Activity.ConsultActivity.SelectPopuWindow;
-import com.zhy.Activity.MyConsultContentActivity.backlistener;
-import com.zhy.Activity.MyConsultContentActivity.commentlistener;
 import com.zhy.Bean.BaseBean;
 import com.zhy.Db.SharedPreferenceDb;
 import com.zhy.Util.AppUtils;
@@ -53,13 +44,11 @@ import com.zhy.wheelview.WheelView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -69,6 +58,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -81,7 +71,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -114,8 +103,8 @@ public class UserInfoActivity extends Activity{
 		parentview=findViewById(R.id.linearlayout_profile);
 		imageLoader.init(ImageLoaderConfiguration.createDefault(context));
 		options = new DisplayImageOptions.Builder()
-				.showStubImage(R.drawable.dafult)
-				.showImageOnFail(R.drawable.dafult).cacheInMemory().cacheOnDisc()
+				.showStubImage(R.drawable.defalut)
+				.showImageOnFail(R.drawable.defalut).cacheInMemory().cacheOnDisc()
 				.displayer(new RoundedBitmapDisplayer(20)).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
 				.displayer(new FadeInBitmapDisplayer(300)).build();
 		titlePopup = new TitlePopup(this, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -199,13 +188,13 @@ public class UserInfoActivity extends Activity{
 	private void uploadpic(){
 		new SelectPopuWindow(context,parentview);
 	}
+	@SuppressLint("InflateParams")
 	public void showdialog(){
 		    //获取自定义布局  
 		    LayoutInflater layoutInflater = getLayoutInflater();  
 		    View mainView= layoutInflater.inflate(R.layout.edit_userinfo, null);
 		    final EditText username = (EditText) mainView.findViewById(R.id.username);
 		    final userinfo info=new userinfo();
-		    RadioGroup radiogroup = (RadioGroup)mainView.findViewById(R.id.sex);
 			final RadioButton man = (RadioButton) mainView.findViewById(R.id.male);
 			Calendar c = Calendar.getInstance();
 			int mYear=1996;
@@ -256,6 +245,7 @@ public class UserInfoActivity extends Activity{
 		    .setNegativeButton("取消", null)//设置对话框[否定]按钮  
 		    .show();  
 	}
+	@SuppressLint({ "SimpleDateFormat", "UseValueOf" })
 	public  final String calculateDatePoor(String birthday) {
 		try {
 			if (TextUtils.isEmpty(birthday))
@@ -393,6 +383,7 @@ public class UserInfoActivity extends Activity{
 
 		private Context context;
 
+		@SuppressWarnings("deprecation")
 		public SelectPopuWindow(Context mContext, View parent) {
 
 			this.context = mContext;
@@ -514,7 +505,7 @@ public class UserInfoActivity extends Activity{
 			
 			
 		} else if (requestCode == 2 && respCode == RESULT_OK) {
-			ContentResolver resolver = getContentResolver();
+		
 			Uri uri = data.getData();
 			try {
 				
@@ -604,6 +595,7 @@ public class UserInfoActivity extends Activity{
 			}
 	}
 	private void upload(String appid,String input, String agent,String avatartype,String filename ){
+		if(AppUtils.checkNetwork(context)==true){
 		final File f=new File(filename);
 		String posturl=HttpConstants.HTTP_UPLOAD_AVATAR.replace("!", agent).replace("@", avatartype).replace("#", input).replace("$", appid);
 		new UploadPicture(posturl, null, null, "Filedata", f,new ResultCallback() {
@@ -634,7 +626,9 @@ public class UserInfoActivity extends Activity{
 			
 			
 		}).PicPost(); 
-		
+		}else{
+			Toast.makeText(context, "网络连接断开", Toast.LENGTH_LONG).show();
+		}
 	}
 	private void getusericon(){
 		if(AppUtils.checkNetwork(context)==true){
@@ -671,5 +665,17 @@ public class UserInfoActivity extends Activity{
 			});}else{
 				Toast.makeText(context, "网络连接断开", Toast.LENGTH_LONG).show();
 			}
+	}
+	 public boolean onKeyDown(int keyCode, KeyEvent event) {
+	        if (keyCode == KeyEvent.KEYCODE_BACK) {
+	           
+	           finish();
+	        }
+	        return super.onKeyDown(keyCode, event);
+	    }
+	@Override
+	protected void onDestroy() {
+		System.gc();
+		super.onDestroy();
 	}
 }

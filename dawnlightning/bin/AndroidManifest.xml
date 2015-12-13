@@ -128,6 +128,10 @@
             android:name="com.zhy.Activity.MainActivity_1"
             android:launchMode="singleTop" >
         </activity>
+        <activity
+            android:name="com.zhy.Activity.CommentActivity"
+            android:launchMode="singleTop" >
+        </activity>
          <activity
             android:name="com.zhy.Activity.MyConsultActivity"
             android:launchMode="singleTop" >

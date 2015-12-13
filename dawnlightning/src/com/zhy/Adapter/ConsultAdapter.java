@@ -27,12 +27,15 @@ import com.zhy.Util.SdCardUtil;
 
 
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
+import android.os.Build;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,7 +54,7 @@ public class ConsultAdapter extends BaseAdapter{
 	private List<ConsultMessageBean> list;
 	private ImageLoader imageLoader = ImageLoader.getInstance();
 	private DisplayImageOptions options;
-	
+	private ConsultMessageBean item;
 	public ConsultAdapter(Context c,List<ConsultMessageBean> list) {
 		super();
 		this.context=c;
@@ -76,8 +79,8 @@ public class ConsultAdapter extends BaseAdapter{
 	    .build();
 		imageLoader.init(config);
 		options = new DisplayImageOptions.Builder()
-				.showStubImage(R.drawable.dafult)
-				.showImageOnFail(R.drawable.dafult).cacheInMemory().cacheOnDisc()
+				.showStubImage(R.drawable.defalut)
+				.showImageOnFail(R.drawable.defalut).cacheInMemory().cacheOnDisc()
 				.displayer(new RoundedBitmapDisplayer(20)).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
 				.displayer(new FadeInBitmapDisplayer(300)).build();
 	
@@ -115,6 +118,8 @@ public class ConsultAdapter extends BaseAdapter{
 		return position;
 	}
 
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	@SuppressLint("NewApi")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (null == convertView) {
@@ -132,7 +137,7 @@ public class ConsultAdapter extends BaseAdapter{
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		ConsultMessageBean item = list.get(position); // ��ȡ��ǰ�����
+			item = list.get(position); // ��ȡ��ǰ�����
 		
 		if (null != item) {
 			holder.suject.setText(item.getSubject());
@@ -151,10 +156,13 @@ public class ConsultAdapter extends BaseAdapter{
 				holder.pic.setVisibility(holder.pic.GONE);
 			
 			}
-		
-			if(item.getStatus().equals("1")){
-				holder.status.setBackgroundResource(R.drawable.jiejue);
+			Log.e("status",item.getStatus());
+			if(item.getStatus().contains("1")){
+				holder.status.setBackground(context.getResources().getDrawable(R.drawable.jiejue));
+			}else{
+				holder.status.setBackground(null);
 			}
+		
 		
 			
 			

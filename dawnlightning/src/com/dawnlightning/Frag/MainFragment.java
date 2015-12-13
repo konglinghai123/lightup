@@ -23,6 +23,7 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.zhy.Activity.AboutActivity;
 import com.zhy.Activity.LoginActivity;
 import com.zhy.Activity.MyConsultActivity;
 import com.zhy.Activity.UserInfoActivity;
@@ -64,6 +65,7 @@ public class MainFragment extends Fragment
 	private View myconsult;
 	private View relogin;
 	private View info;
+	private View about;
 	private ImageLoaderConfiguration config; 
 	private TextView username;
 	private  SharedPreferenceDb mySharedPreferenceDb=null;
@@ -116,8 +118,8 @@ public class MainFragment extends Fragment
 	    .build();
 		imageLoader.init(config);
 		options = new DisplayImageOptions.Builder()
-				.showStubImage(R.drawable.dafult)
-				.showImageOnFail(R.drawable.dafult).cacheInMemory().cacheOnDisc()
+				.showStubImage(R.drawable.defalut)
+				.showImageOnFail(R.drawable.defalut).cacheInMemory().cacheOnDisc()
 				.displayer(new RoundedBitmapDisplayer(20)).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
 				.displayer(new FadeInBitmapDisplayer(300)).build();
 		 username=(TextView) getView().findViewById(R.id.tv_name);
@@ -186,6 +188,19 @@ public class MainFragment extends Fragment
 			}
 			 
 		 });
+		 about=getView().findViewById(R.id.re_about);
+		 about.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					Intent i=new Intent();
+					i.setClass(context, AboutActivity.class);
+					context.startActivity(i);
+					
+					
+				}
+				 
+			 });
 	}
 
 	public void saveImageToFile(Bitmap bitmap,String  url){
@@ -226,14 +241,14 @@ public class MainFragment extends Fragment
 		
 		super.onResume();
 		imageLoader.displayImage(mySharedPreferenceDb.getuserAVATOR(), usericon, options);
-		 Log.e("resume","resume");
+	
 	}
 
 	@Override
 	public void onAttach(Activity activity) {
 		// TODO 自动生成的方法存根
 		super.onAttach(activity);
-		 Log.e("attach","attach");
+	
 		
 	}
 
@@ -241,14 +256,14 @@ public class MainFragment extends Fragment
 	public void onPause() {
 		// TODO 自动生成的方法存根
 		super.onPause();
-		 Log.e("pause","pause");
+	
 	}
 
 	@Override
 	public void onStop() {
 		
 		super.onStop();
-		 Log.e("stop","stop");
+		
 	}
 
 

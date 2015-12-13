@@ -2,21 +2,16 @@ package com.zhy.Activity;
 
 
 
-import java.util.List;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
+
+
 
 import com.dawnlightning.ucqa.R;
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -24,23 +19,20 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.zhy.Util.HttpConstants;
+
 import com.zhy.view.ImageTouchView;
 
 
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Intent;
+
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
-import android.widget.ImageView;
+
 
 public class PictureActivity extends Activity{
-	private ImageTouchView myView = null;
-	private String path="";
-	private List<String> allImageUrl;
-	private ProgressDialog dialog;
+	private ImageTouchView myView = null;	
 	private String psit;
 	private DisplayImageOptions options;
 	private ImageLoader imageLoader = ImageLoader.getInstance();
@@ -51,8 +43,6 @@ public class PictureActivity extends Activity{
         setContentView(R.layout.picture);
       
         myView = (ImageTouchView)findViewById(R.id.myView);
-        Intent i=getIntent();
-      
         psit=getIntent().getStringExtra("image");
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
         	    this)
@@ -82,6 +72,18 @@ public class PictureActivity extends Activity{
        
     }
 	
-   
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+           
+           finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+	@Override
+	protected void onDestroy() {
+		System.gc();
+		super.onDestroy();
+	}
    
 }

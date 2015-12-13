@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import me.maxwin.view.IXListViewLoadMore;
+import me.maxwin.view.XListView;
+
 import com.dawnlightning.ucqa.R;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
@@ -66,18 +69,18 @@ public class ContentAdapter extends BaseAdapter {
 	private LayoutInflater layoutInflater;
 	private Message message;
 	private Picture picture;
-	private Comment comment;
+	
 	private Title title;
 	private ArrayList<String> piclsit;
 	private  List<com.zhy.Bean.Comment> comList=new ArrayList();
 	private MainListViewAdapter pinglunAdapter;
 	private MainGridViewAdapter mainGridViewAdapter;
-	private final static String [] fileds={"开头","正文","图片","评论"};
+	private final static String [] fileds={"开头","正文","图片"};
 	private Boolean IsShow=false;
 	private ImageLoader imageLoader = ImageLoader.getInstance();
 	private DisplayImageOptions options;
 	private View listviewhead;
-	
+	private IXListViewLoadMore loadmorelisten;
 	private OnClickListener pinglunlistener;
 	private OnClickListener fengxianglistener;
 	public ContentAdapter(Context context,HashMap<String,Detailed> content){
@@ -101,8 +104,8 @@ public class ContentAdapter extends BaseAdapter {
 	    .build();
 		imageLoader.init(config);
 		options = new DisplayImageOptions.Builder()
-				.showStubImage(R.drawable.dafult)
-				.showImageOnFail(R.drawable.dafult).cacheInMemory().cacheOnDisc()
+				.showStubImage(R.drawable.defalut)
+				.showImageOnFail(R.drawable.defalut).cacheInMemory().cacheOnDisc()
 				.displayer(new RoundedBitmapDisplayer(20)).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
 				.displayer(new FadeInBitmapDisplayer(300)).build();
 	}
@@ -184,13 +187,7 @@ public class ContentAdapter extends BaseAdapter {
 				Log.e("keys", keys);
 				arg1.setTag(R.id.pictrue_id, picture);
 				break;
-			case 3:
-				arg1=layoutInflater.inflate(R.layout.item_content_comment,null);
-				comment=new Comment();
-				comment.moodinListView=(ListView)arg1.findViewById(R.id.pinglunListView);
-				Log.e("keys", keys);
-				arg1.setTag(R.id.comment_id, comment);
-				break;
+			
 		
 			}
 	
@@ -204,9 +201,7 @@ public class ContentAdapter extends BaseAdapter {
 		if(picture==null){
 			picture=(Picture) arg1.getTag(R.id.pictrue_id);
 		}
-		if(comment==null){
-			comment=(Comment) arg1.getTag(R.id.comment_id);
-		}
+		
 		switch(keys){
 		case "开头":
 			
@@ -281,51 +276,13 @@ public class ContentAdapter extends BaseAdapter {
 					
 				}
 			break;
-		case "评论":
-			 if(null!=dt.getComment()&&dt.getComment().size()!=0){
-				  comList = dt.getComment();
-				  pinglunAdapter = new MainListViewAdapter(context, comList); 
-				  if(listviewhead==null){
-					  listviewhead=layoutInflater.inflate(R.layout.listview_pinglun_head,null);
-				  }
-				  comment.moodinListView.addHeaderView(listviewhead);
-				
-				  LinearLayout  pinglun=(LinearLayout) listviewhead.findViewById(R.id.pinglun);
-				
-				  if(this.pinglunlistener!=null){
-					  pinglun.setOnClickListener(pinglunlistener);
-				  }
-				  
-				 
-				 LinearLayout  fengxiang=(LinearLayout) listviewhead.findViewById(R.id.fenxiang);
-				 
-				  if(this.fengxianglistener!=null){
-					  fengxiang.setOnClickListener(fengxianglistener);
-				  }
-				  comment.moodinListView.setAdapter(pinglunAdapter);
-				 
-				  LvHeightUtil.setListViewHeightBasedOnChildren( comment.moodinListView);
-						 
-			  }else{
-				 
-			  }
-			break;
+		
+			
 		}
 		
 		return arg1;
 	}
 	
-	public void setpinglunOnclickListener(OnClickListener onClickListener){
-		this.pinglunlistener=onClickListener;
-	}
-	public void setfengxiangOnclickListener(OnClickListener onClickListener){
-		this.fengxianglistener=onClickListener;
-	}
-	private LinearLayout setOnClickListener(OnClickListener onClickListener) {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
 
 	public class Message{
 		// 标题
@@ -339,17 +296,8 @@ public class ContentAdapter extends BaseAdapter {
 		private NoScrollGridView moodinGridView;
 
 	}
-	public class Comment{
-		// 心情评论
-		private ListView moodinListView;
-	}
-	public class Setcomment{
-		// 评论按钮
-		private LinearLayout pinglun;
-		
-		//评论edittext
-		private EditText etPingLunContent;
-	}
+	
+	
 	public class Title{
 		// 用户图像
 		private ImageView ivUserLogo;

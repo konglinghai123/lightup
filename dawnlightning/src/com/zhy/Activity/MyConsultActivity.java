@@ -19,6 +19,7 @@ import com.zhy.Adapter.ConsultAdapter;
 import com.zhy.Bean.BaseBean;
 import com.zhy.Bean.ConsultBean;
 import com.zhy.Bean.ConsultMessageBean;
+import com.zhy.Util.AppUtils;
 import com.zhy.Util.HttpConstants;
 import com.zhy.Util.HttpUtil;
 import com.zhy.Util.ResultCallback;
@@ -30,6 +31,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -38,17 +40,17 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class MyConsultActivity extends Activity implements IXListViewRefreshListener, IXListViewLoadMore{
-	private XListView newsListView;
+	public static XListView newsListView;
 	private TitleBar titlebar;
 	private ConsultAdapter adapter;
 	private Context context;
 	private String MessageType="我";
 	private List<ConsultMessageBean> list;
-	private String refreshDate = "";
 	private String PostUrl=HttpConstants.HTTP_CONSULT;//post的地址
 	private int currentpage=1;
 	private  ArrayList<String> userinfo;
 	private List<NameValuePair> parms=new ArrayList<NameValuePair>();//post的参数
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -85,7 +87,6 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				ConsultMessageBean item=(ConsultMessageBean)adapter.getItem(arg2-1);
-				Log.e("TAG",item.getUid());
 				ArrayList<String> message =new ArrayList<String>();
 				for(int i=0;i<userinfo.size();i++){
 					message.add(userinfo.get(i));
@@ -93,6 +94,7 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 				
 				message.add(item.getBwztid());
 				message.add(item.getUid());
+				message.add(item.getReplynum());
 				Intent i=new Intent();
 				
 				//NewsItem item = (NewsItem)adapter.getItem(arg2-1);
@@ -117,6 +119,7 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 		newsListView.startRefresh();
 	}
 	public void resfreshdata(int currentpage,String url,List<NameValuePair> parms){
+		if(AppUtils.checkNetwork(context)==true){
 		parms.add(new BasicNameValuePair("page",String.valueOf(currentpage)));
 	
 		//showdialog();
@@ -127,7 +130,6 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 			public void getReslt(String result) {
 				if(!result.isEmpty() ){
 					
-					Log.e("TAG",result);
 					BaseBean b=JSON.parseObject(result, BaseBean.class);
 					if("0".equals(b.getCode())){
 					
@@ -135,7 +137,6 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 						JSONObject js=(JSONObject) JSON.parse(b.getData());
 						dt.setMessages(js.getString("list"));
 						dt.setCount(js.getIntValue("count"));
-						Log.e("Tag",dt.getMessages());
 						List<ConsultMessageBean> newlist=JSON.parseArray(dt.getMessages().toString(),ConsultMessageBean.class);		
 						
 				
@@ -153,7 +154,7 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 							 	adapter.clearList();
 							 	adapter.notifyDataSetChanged();
 								Toast.makeText(context,"没有更多的咨询", Toast.LENGTH_LONG).show();
-								 newsListView.stopRefresh(getDate());
+								newsListView.stopRefresh(getDate());
 							
 						 }
 					}else{
@@ -171,9 +172,12 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 		
 	
 		
-		});}
+		});}else{
+			Toast.makeText(context, "网络连接失败", Toast.LENGTH_LONG).show();
+		}}
 		
 	public void moreloaddata(int currentpage,String url,List<NameValuePair> parms){
+		if(AppUtils.checkNetwork(context)==true){
 		List<NameValuePair> newparms=new ArrayList<NameValuePair>();
 		for(NameValuePair np: parms){
 			if(np.getName()!="page"){
@@ -233,7 +237,9 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 			
 		
 			
-			});
+			});}else{
+				Toast.makeText(context, "网络连接失败", Toast.LENGTH_LONG).show();
+			}
 }
 	public String getDate(){
 		SimpleDateFormat sdf=new SimpleDateFormat("MM月dd日 HH:mm", Locale.CHINA);  
@@ -254,8 +260,20 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 		
 	}
 	@Override
+	protected void onDestroy() {
+		System.gc();
+		super.onDestroy();
+	}
+	@Override
 	protected void onResume() {
 		super.onResume();
-		onRefresh();
+		
 	}
+	 public boolean onKeyDown(int keyCode, KeyEvent event) {
+	        if (keyCode == KeyEvent.KEYCODE_BACK) {
+	           
+	           finish();
+	        }
+	        return super.onKeyDown(keyCode, event);
+	    }
 }

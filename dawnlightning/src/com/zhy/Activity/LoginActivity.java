@@ -2,15 +2,9 @@ package com.zhy.Activity;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-
-import cn.jpush.android.api.JPushInterface;
-
 import com.alibaba.fastjson.JSON;
 import com.zhy.Bean.BaseBean;
 import com.zhy.Bean.UserBean;
@@ -24,7 +18,6 @@ import com.zhy.Util.ResultCallback;
 import com.dawnlightning.ucqa.R;
 import com.zhy.view.EditTextWithDel;
 import com.zhy.view.TitleBar;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -32,16 +25,12 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.style.TypefaceSpan;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,8 +72,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	
 		 etPhone.setText(mySharedPreferenceDb.getName());
 		 etPassWord.setText(mySharedPreferenceDb.getUserId());
-		Log.e("db", mySharedPreferenceDb.getName());
-		Log.e("db", mySharedPreferenceDb.getUserId());
 		if(mySharedPreferenceDb.getAutoLogin()){
 		 if(mySharedPreferenceDb.getName()!=""&&mySharedPreferenceDb.getUserId()!=""){
 			 	
@@ -101,7 +88,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	protected void onDestroy() {
 		// TODO 自动生成的方法存根
 		super.onDestroy();
-		setContentView(R.layout.viewnull);
+		System.gc();
 	}
 
 	@Override
@@ -123,11 +110,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onStart();
 		TitleBar titleBar=(TitleBar)findViewById(R.id.TitleBar);
-		 if(!"0".equals(String.valueOf(new SharedPreferenceDb(LoginActivity.this).getChangeTheme()))){
-			 titleBar.setBackgroundColor(new SharedPreferenceDb(LoginActivity.this).getChangeTheme());
-		 }else{
-			 titleBar.setBackgroundColor(getResources().getColor(R.color.blue));
-		 }
+		
+		titleBar.setBackgroundColor(getResources().getColor(R.color.blue));
+		
 		 titleBar.showLeft("登陆", null, new OnClickListener() {
 				
 				@Override
@@ -142,7 +127,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	public void initViews() {
 		// TODO Auto-generated method stub
 		super.initViews();
-		
+	
 		// tvRegister=(RelativeLayout)findViewById(R.id.newUserRegister);
 		 //tvRegister.setOnClickListener(this);
 		Typeface typeFace =Typeface.createFromAsset(getAssets(),"attr/HelveticaNeue.ttf");
@@ -288,5 +273,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		Toast.makeText(LoginActivity.this, str, Toast.LENGTH_LONG).show();
 	}
 	
-	
+	 public boolean onKeyDown(int keyCode, KeyEvent event) {
+	        if (keyCode == KeyEvent.KEYCODE_BACK) {
+	           
+	           finish();
+	        }
+	        return super.onKeyDown(keyCode, event);
+	    }
 }

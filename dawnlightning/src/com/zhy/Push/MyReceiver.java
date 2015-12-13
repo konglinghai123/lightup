@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import com.zhy.Activity.MainActivity_1;
 import com.zhy.Activity.MyConsultContentActivity;
+import com.zhy.Activity.NewsContentActivity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -75,7 +76,7 @@ public class MyReceiver extends BroadcastReceiver {
 		message.add(id);
 		message.add(uid);
 		Intent i=new Intent();
-		i.setClass(context, MyConsultContentActivity.class);
+		i.setClass(context, NewsContentActivity.class);
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
 		i.putStringArrayListExtra("message", message);
 		context.startActivity(i);

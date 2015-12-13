@@ -2,9 +2,7 @@ package com.zhy.Activity;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -24,9 +22,7 @@ import com.zhy.Util.ResultCallback;
 import com.zhy.view.EditTextWithDel;
 import com.zhy.view.TitleBar;
 
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -34,13 +30,14 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
+
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 
@@ -48,7 +45,6 @@ import android.widget.Toast;
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class RegisterActivity extends BaseActivity implements OnClickListener,OnCheckedChangeListener {
 
-	private TitleBar titleBar;
 
 	private Context context;
 	private EditTextWithDel etPhone;
@@ -64,7 +60,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,On
 	private Button btnRegister;
 	
 	
-	private boolean isSelect=false;
+
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -238,12 +234,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,On
 
 	@Override
 	public void onCheckedChanged(CompoundButton arg0, boolean isChecked) {
-		// TODO Auto-generated method stub
-		if(isChecked){
-			isSelect=true;
-		}else{
-			isSelect=false;
-		}
+		
 	}
 	public void login(final String username,final String password){
 
@@ -263,9 +254,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,On
 				// TODO Auto-generated method stub
 				//&& "1".equals(result)
 				if(!result.isEmpty() ){
-					Log.e("avater", result);
-					BaseBean b=JSON.parseObject(result, BaseBean.class);
 					
+					BaseBean b=JSON.parseObject(result, BaseBean.class);
 					if("0".equals(b.getCode())){
 						
 						UserBeanData dt=JSON.parseObject(b.getData(), UserBeanData.class);
@@ -311,4 +301,12 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,On
 			}
 		});
 	}
+	 public boolean onKeyDown(int keyCode, KeyEvent event) {
+	        if (keyCode == KeyEvent.KEYCODE_BACK) {
+	           
+	           finish();
+	        }
+	        return super.onKeyDown(keyCode, event);
+	    }
+	 
 }
