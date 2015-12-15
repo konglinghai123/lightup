@@ -13,6 +13,7 @@ import com.dawnlightning.Frag.MyFragmentPagerAdapter;
 import com.dawnlightning.ucqa.R;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.zhy.Push.ExampleUtil;
+import com.zhy.Update.UpdateManager;
 import com.zhy.Util.DataCleanManager;
 import com.zhy.Util.HttpConstants;
 import com.zhy.Util.SdCardUtil;
@@ -316,7 +317,7 @@ public class MainActivity_1 extends BaseActivity {
 		        }
 		    };
 		
-		
+	
 		   
 		  
 }

@@ -20,13 +20,29 @@
         android:background="@drawable/btn_list_item_bg"
         android:paddingBottom="8dp"
         android:paddingTop="8dp" >
+		 <FrameLayout
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/left"
+              android:layout_marginLeft="15dp"
+           >
 
-        <ImageView
+           <ImageView
             android:id="@+id/iv_avatar"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginLeft="15dp"
             android:src="@drawable/default_useravatar" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/content_bg" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/content_bg_shape" />
+
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/ll_name"
@@ -34,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="12dp"
-            android:layout_toRightOf="@id/iv_avatar"
+            android:layout_toRightOf="@id/left"
             android:orientation="horizontal" >
 
             <ImageView
@@ -52,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="22dp"
-            android:layout_toRightOf="@+id/iv_avatar"
+            android:layout_toRightOf="@+id/left"
             android:text="小孔成像"
             android:textColor="#353535"
             android:textSize="20sp" />
@@ -93,7 +109,65 @@
             android:layout_marginRight="12dp"
             android:background="#dadada" />
     </RelativeLayout>
+	 <RelativeLayout
+        android:id="@+id/re_updata"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/btn_list_item_bg"
+        android:clickable="true"
+        android:paddingLeft="12dp" >
 
+        <ImageView
+            android:id="@+id/iv_update"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/update" />
+
+        <TextView
+            android:id="@+id/tvupdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/iv_update"
+            android:text="版本更新"
+            android:textColor="#353535"
+            android:textSize="16sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="12dp"
+            android:background="#dadada" />
+
+        <TextView
+            android:id="@+id/update_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tvupdate"
+            android:background="@drawable/unread_count_bg"
+            android:text="NEW"
+            android:textColor="@color/white"
+            android:textSize="8sp" 
+            android:visibility="gone"
+            />
+
+         <TextView
+             android:id="@+id/versioncode"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignBottom="@+id/iv_update"
+             android:layout_alignParentRight="true"
+             android:layout_marginRight="18dp"
+             android:text="V1.0"
+             android:textColor="#CCCCCC"
+             android:textSize="14sp" />
+
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/re_about"
         android:layout_width="match_parent"

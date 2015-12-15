@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
- 	android:background="@drawable/login_main_bg"
+ 
     >
 
     <com.zhy.view.TitleBar
@@ -21,13 +21,9 @@
         android:layout_marginTop="220dip"
         android:layout_marginLeft="21.0dip"
         android:layout_marginRight="21.0dip"
-        android:background="@drawable/shape_bg"
-      
+      android:background="@drawable/shape_bg"
         android:orientation="vertical" >
-		<RelativeLayout 
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    >
+		
 
 		     <com.zhy.view.EditTextWithDel
 		     android:layout_toRightOf="@+id/picuser"
@@ -35,27 +31,18 @@
             android:layout_width="fill_parent"
             android:layout_height="44.0dip"
             android:background="#00ffffff"
-       
+       		 android:hint="手机号码"
              android:maxLength="11"
             android:maxLines="1"
             android:paddingLeft="10.0dip"
-              android:textColor="#DAFFE2"
+              android:textColor="#ff1d1d1d"
             android:textColorHint="#ff666666"
             android:layout_marginRight="2dp"
-            android:textSize="30.0sp"
+            android:textSize="16.0sp"
      
              />
 
-		     <ImageView
-		         android:id="@+id/picuser"
-		         android:layout_width="48dp"
-		         android:layout_height="44.0dip"
-		         android:layout_alignParentLeft="true"
-		         android:layout_alignParentTop="true"
-		         android:layout_marginLeft="16dp"
-		         android:background="@drawable/person" />
-
-		</RelativeLayout>
+		  
        
 
         <View
@@ -64,10 +51,7 @@
            android:layout_marginLeft="12dp"
 	         android:layout_marginRight="12dp"
             android:background="#ffc0c3c4" />
-	<RelativeLayout 
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    >
+	
 	      <com.zhy.view.EditTextWithDel
 	       	android:layout_toRightOf="@+id/picpass"
             android:id="@+id/password"
@@ -75,28 +59,19 @@
             android:layout_height="44.0dip"
             android:background="#00ffffff"
             android:gravity="center_vertical"
-         
+          	android:hint="密码"
             android:inputType="textPassword"
             android:maxLength="11"
             android:maxLines="1"
             android:paddingLeft="10.0dip"
-            android:textColor="#DAFFE2"
+              android:textColor="#ff1d1d1d"
             android:textColorHint="#ff666666"
             android:layout_marginRight="2dp"
-            android:textSize="30.0sp"
+            android:textSize="16.0sp"
          
              />
 
-	      <ImageView
-	          android:id="@+id/picpass"
-	          android:layout_width="48dp"
-	          android:layout_height="44.0dip"
-	          android:layout_alignParentLeft="true"
-	          android:layout_alignParentTop="true"
-	          android:layout_marginLeft="14dp"
-	          android:background="@drawable/lock" />
-	 
-	</RelativeLayout>
+	  
 	     <View
             android:layout_width="fill_parent"
             android:layout_height="2.0px"
@@ -111,7 +86,7 @@
 	         android:layout_marginLeft="12dp"
 	         android:layout_marginRight="12dp"
 	         android:layout_marginTop="24dp"
-	         android:background="@drawable/bt_login_shape"
+	         android:background="@drawable/btn_login_selector"
 	         android:gravity="center"
 	         android:text="登  录"
 	         android:textColor="#e1fce8"
@@ -123,7 +98,7 @@
 	         android:layout_height="wrap_content"
 	         android:layout_marginLeft="5dp"
 	         android:text="记住密码"
-	         android:textColor="#dcf9e4"
+	         android:textColor="#ff1d1d1d"
 	         android:textSize="18.0sp" 
 	         android:checked="true"
 	         />
@@ -140,10 +115,9 @@
       	        android:layout_width="wrap_content"
       	        android:layout_height="wrap_content"
       	        android:text="还没注册？"
-      	       android:textSize="16.0sp"
-      	         android:textColor="#dcf9e4"
-      	         
-      	         android:layout_alignParentRight="true"
+      	       	android:textSize="16.0sp"
+      	        android:textColor="#ff1d1d1d" 
+      	        android:layout_alignParentRight="true"
       	        />
       	   
       	</RelativeLayout>
@@ -166,7 +140,7 @@
 	    android:layout_alignParentTop="true"
 	    android:layout_centerHorizontal="true"
 	    android:layout_marginTop="80dp"
-	    android:scaleType="centerInside"
+	   
 	    android:src="@drawable/mylogo" />
 
 </RelativeLayout>

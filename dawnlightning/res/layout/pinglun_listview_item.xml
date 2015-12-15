@@ -30,6 +30,7 @@
 	 	     android:text="veryGood!"
 	 	     android:textColor="#104E8B"
 	 	     android:textSize="12sp" 
+	 	     android:visibility="gone"
 	 	     
 	 	     />
 	 	 <TextView

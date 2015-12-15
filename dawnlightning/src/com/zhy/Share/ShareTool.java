@@ -205,12 +205,12 @@ public class ShareTool
     sp = new WechatMoments.ShareParams();
    
     }
-    sp.setShareType(Platform.SHARE_TEXT);
+    sp.setShareType(Platform.SHARE_WEBPAGE);
     sp.title = shareParams.getTitle();
     sp.text = shareParams.getText();
-   sp.imageData=((BitmapDrawable)context.getResources().getDrawable(R.drawable.mylogo)).getBitmap();
+    sp.imageData=((BitmapDrawable)context.getResources().getDrawable(R.drawable.mylogo)).getBitmap();
     //sp.imageData = 
-   sp.imageUrl="http://www.wyl.cc/wp-content/uploads/2014/02/10060381306b675f5c5.jpg";
+    sp.imageUrl="http://www.wyl.cc/wp-content/uploads/2014/02/10060381306b675f5c5.jpg";
     sp.url = shareParams.getUrl(); 
    
    

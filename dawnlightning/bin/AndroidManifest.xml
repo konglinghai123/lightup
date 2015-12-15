@@ -137,6 +137,10 @@
             android:launchMode="singleTop" >
         </activity>
           <activity
+            android:name="com.zhy.Activity.AboutActivity"
+            android:launchMode="singleTop" >
+        </activity>
+          <activity
             android:name="com.zhy.Activity.MyConsultContentActivity"
             android:launchMode="singleTop" >
         </activity>
@@ -169,7 +173,9 @@
             android:exported="false" >
         </service>
     
-        
+        <service 
+		    android:name="com.zhy.Update.UpdateService" >
+	</service>
         <!-- Required SDK 核心功能-->
         <service
             android:name="cn.jpush.android.service.PushService"

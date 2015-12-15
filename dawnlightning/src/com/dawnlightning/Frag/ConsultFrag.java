@@ -474,13 +474,13 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 								dt.setCount(js.getIntValue("count"));
 								List<ConsultMessageBean> newlist=JSON.parseArray(dt.getMessages().toString(),ConsultMessageBean.class);		
 								
-						
+								  db.delete(MessageType);
 								 if(newlist.size()!=0){
 										
 										for(int i=0;i<newlist.size();i++){
 											newlist.get(i).messagetype=MessageType;
 										}
-								     db.delete(MessageType);
+								   
 									 db.insert(newlist);
 									
 									

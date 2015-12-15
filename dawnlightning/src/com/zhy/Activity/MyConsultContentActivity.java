@@ -353,7 +353,7 @@ public class MyConsultContentActivity extends BaseActivity {
 						 contentadapter=new ContentAdapter(context,content);
 						 contentlist.setAdapter(contentadapter);
 						 initevent();
-						
+						 close();
 					
 						
 					}else{

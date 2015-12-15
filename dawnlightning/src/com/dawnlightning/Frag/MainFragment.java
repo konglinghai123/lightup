@@ -29,6 +29,7 @@ import com.zhy.Activity.MyConsultActivity;
 import com.zhy.Activity.UserInfoActivity;
 import com.zhy.Adapter.TabAdapter;
 import com.zhy.Db.SharedPreferenceDb;
+import com.zhy.Update.UpdateManager;
 import com.zhy.Util.HttpConstants;
 import com.zhy.Util.SdCardUtil;
 import com.zhy.Util.TimeUtil;
@@ -42,6 +43,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,6 +53,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 @SuppressLint("ValidFragment")
 public class MainFragment extends Fragment
@@ -66,9 +70,17 @@ public class MainFragment extends Fragment
 	private View relogin;
 	private View info;
 	private View about;
+	private View update;
 	private ImageLoaderConfiguration config; 
 	private TextView username;
 	private  SharedPreferenceDb mySharedPreferenceDb=null;
+	private UpdateManager updatemanager;
+	public final static int UPDATA_CLIENT=0;
+	public final static int UPDATA_NO=1;
+	public final static int UPDATA_ERROR=2;
+	private Boolean IsUpdate=false;
+	private TextView versioncode;
+	private TextView updatestatus;
 	public MainFragment(Context context,ArrayList<String> userinfo)
 	{
 		
@@ -79,7 +91,7 @@ public class MainFragment extends Fragment
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
-	{
+	{	 initview();
 		super.onActivityCreated(savedInstanceState);
 		
 	}
@@ -94,7 +106,8 @@ public class MainFragment extends Fragment
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO 自动生成的方法存根
+		updatemanager=new UpdateManager(context, handler);
+		updatemanager.checkUpdate();
 		super.onCreate(savedInstanceState);
 	}
 	private void initview(){
@@ -201,6 +214,26 @@ public class MainFragment extends Fragment
 				}
 				 
 			 });
+		 versioncode=(TextView) getView().findViewById(R.id.versioncode);
+		 versioncode.setText("V "+updatemanager.getVersionCode(context));
+		if(IsUpdate){
+			updatestatus=(TextView) getView().findViewById(R.id.update_status);
+			updatestatus.setVisibility(View.VISIBLE);
+		}
+		update=getView().findViewById(R.id.re_updata);
+		update.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				if(IsUpdate){
+					updatemanager.showNoticeDialog();
+				}else{
+					Toast.makeText(context, "当前为最新版本", Toast.LENGTH_SHORT).show();
+				}
+				
+			}
+			
+		});
 	}
 
 	public void saveImageToFile(Bitmap bitmap,String  url){
@@ -233,13 +266,21 @@ public class MainFragment extends Fragment
 	public void onStart() {
 		// TODO 自动生成的方法存根
 		super.onStart();
-		 initview();
+		if(IsUpdate){
+			updatestatus=(TextView) getView().findViewById(R.id.update_status);
+			updatestatus.setVisibility(View.VISIBLE);
+		}
+		
 	}
 
 	@Override
 	public void onResume() {
 		
 		super.onResume();
+		if(IsUpdate){
+			updatestatus=(TextView) getView().findViewById(R.id.update_status);
+			updatestatus.setVisibility(View.VISIBLE);
+		}
 		imageLoader.displayImage(mySharedPreferenceDb.getuserAVATOR(), usericon, options);
 	
 	}
@@ -266,6 +307,27 @@ public class MainFragment extends Fragment
 		
 	}
 
-
+	  Handler handler = new Handler(){  
+          
+	        @Override  
+	        public void handleMessage(Message msg) {  
+	            // TODO Auto-generated method stub  
+	            super.handleMessage(msg);  
+	            switch (msg.what) {  
+	         
+				case UPDATA_CLIENT:  
+					updatemanager.showNoticeDialog();
+					IsUpdate=true;
+	                break;  
+	            case UPDATA_ERROR:  
+	               
+	               
+	                break;    
+	            case UPDATA_NO:  
+	              
+	                break;    
+	            }  
+	        }  
+	    }; 
 	
 }

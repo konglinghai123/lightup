@@ -60,7 +60,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	protected void onCreate(Bundle arg0) {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
-		MoodApplication.getInstance().addActivity(this);
+	
 		setContentView(R.layout.userlogin);
 		 initViews();
 		Intent recintent=getIntent();
@@ -72,15 +72,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	
 		 etPhone.setText(mySharedPreferenceDb.getName());
 		 etPassWord.setText(mySharedPreferenceDb.getUserId());
-		if(mySharedPreferenceDb.getAutoLogin()){
-		 if(mySharedPreferenceDb.getName()!=""&&mySharedPreferenceDb.getUserId()!=""){
-			 	
-				login(mySharedPreferenceDb.getName(),mySharedPreferenceDb.getUserId());
-				
-			}else{
-			
-			
-			}}
+		
 		
 	}
 	

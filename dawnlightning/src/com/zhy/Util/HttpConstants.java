@@ -67,4 +67,7 @@ public class HttpConstants {
 	
 	/*未读消息列表 */
 	public final static String HTTP_UNREAD_MESSAGE=HTTP_REQUEST+"space.php?do=notice&m_auth=!&page=@";
+	
+	public final static String Update="https://ucqa.dawnlightning.com/capi/version.xml";
+	
 }

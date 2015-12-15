@@ -2,6 +2,7 @@ package com.zhy.dialog;
 
 import com.dawnlightning.ucqa.R;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+@SuppressLint("WrongViewCast")
 public class CustomDialogUpd extends Dialog {
 	
 	public CustomDialogUpd(Context context) {
@@ -26,6 +28,7 @@ public class CustomDialogUpd extends Dialog {
 		this.setCanceledOnTouchOutside(false);
 	}
 
+	@SuppressLint("WrongViewCast")
 	public static class Builder {
 		private Context context;
 		private String title;
@@ -124,6 +127,7 @@ public class CustomDialogUpd extends Dialog {
 		}
 
 		// 有取消按钮自定义框
+		@SuppressLint("WrongViewCast")
 		public CustomDialogUpd create() {
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			// instantiate the dialog with the custom Theme
@@ -176,8 +180,7 @@ public class CustomDialogUpd extends Dialog {
 			}
 			// set the content message
 			if (message != null) {
-				((TextView) layout.findViewById(R.id.et_comment))
-						.setText(message);
+				((TextView) layout.findViewById(R.id.et_comment)).setText(message);
 			} else if (contentView != null) {
 				// if no message set
 				// add the contentView to the dialog body

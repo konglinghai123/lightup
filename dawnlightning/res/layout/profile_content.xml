@@ -30,24 +30,39 @@
                    android:id="@+id/touxiang"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:layout_alignBottom="@+id/usericon"
+                   android:layout_alignBottom="@+id/left"
                    android:layout_alignParentLeft="true"
                    android:layout_marginBottom="20dp"
                    android:layout_marginLeft="20dp"
                    android:text="头像"
                    android:textColor="#353535"
                    android:textSize="16sp" />
+			 <FrameLayout
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/left"
+            android:layout_alignParentRight="true"
+                   android:layout_alignParentTop="true"
+           >
 
-               <ImageView
+        <ImageView
                    android:id="@+id/usericon"
                    android:layout_width="64dp"
                    android:layout_height="64dp"
-                   android:layout_alignParentRight="true"
-                   android:layout_alignParentTop="true"
-                   android:layout_marginRight="15dp"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp"
                    android:src="@drawable/default_useravatar" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/content_bg" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/content_bg_shape" />
+
+        </FrameLayout>
+               
           
         </RelativeLayout>
             <View

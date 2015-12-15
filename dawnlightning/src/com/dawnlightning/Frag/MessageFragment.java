@@ -214,7 +214,8 @@ public class MessageFragment extends Fragment implements IXListViewLoadMore,IXLi
 						}
 						
 						messageadapter.notifyDataSetChanged();
-						
+						tvcount.setVisibility(View.VISIBLE);
+						tvcount.setText(messagecount);
 						listview.stopLoadMore();
 						listview.stopRefresh();
 					
@@ -257,7 +258,8 @@ public class MessageFragment extends Fragment implements IXListViewLoadMore,IXLi
 						JSONObject js=(JSONObject) JSON.parse(j.getString("notices"));
 						messagecount=js.getString("count");
 						
-						
+						tvcount.setVisibility(View.VISIBLE);
+						tvcount.setText(messagecount);
 						
 						messages=JSON.parseArray(js.getString("list"),MessageBean.class);
 						

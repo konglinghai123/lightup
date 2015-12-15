@@ -1,15 +1,28 @@
 package com.zhy.Activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+
 import android.os.Bundle;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList; 
+import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import cn.jpush.android.api.JPushInterface;
+
+import com.alibaba.fastjson.JSON;
 import com.dawnlightning.ucqa.R;
+import com.zhy.Bean.BaseBean;
+import com.zhy.Bean.UserBean;
+import com.zhy.Bean.UserBeanData;
 import com.zhy.Db.SharedPreferenceDb;
+import com.zhy.Util.HttpConstants;
+import com.zhy.Util.HttpUtil;
+import com.zhy.Util.ResultCallback;
 
 import android.content.Intent; 
 import android.graphics.Bitmap;
@@ -26,8 +39,9 @@ import android.view.ViewGroup;
 import android.widget.Button; 
 import android.widget.ImageView; 
 import android.widget.LinearLayout;
+import android.widget.Toast;
   
-public class GuideActivity extends Activity { 
+public class GuideActivity extends BaseActivity { 
     private ViewPager viewPager; 
       
     /**装分页显示的view的数组*/
@@ -56,10 +70,24 @@ public class GuideActivity extends Activity {
         super.onCreate(savedInstanceState); 
         mySharedPreferenceDb=new SharedPreferenceDb(this);
          if(mySharedPreferenceDb.getIsFirstInstall()){
+        	 if(mySharedPreferenceDb.getAutoLogin()==false){
         	 Intent i=new Intent();
         	 i.setClass(this, LoginActivity.class);
         	 startActivity(i);
         	 finish();
+        	 }else{
+        		 if(mySharedPreferenceDb.getName()!=""&&mySharedPreferenceDb.getUserId()!=""){
+     			 	
+     				login(mySharedPreferenceDb.getName(),mySharedPreferenceDb.getUserId());
+     				
+     			}else{
+     				
+     				Intent i=new Intent();
+     	        	i.setClass(this, LoginActivity.class);
+     	        	startActivity(i);
+     	        	finish();
+     			}
+        	 }
         	
          }else{
         //将要分页显示的View装入数组中 
@@ -278,5 +306,74 @@ public class GuideActivity extends Activity {
 	        }
 	        return super.onKeyDown(keyCode, event);
 	    }
+	 
+	 public void login(final String username,final String password){
+
+			List<NameValuePair> allP=new ArrayList<NameValuePair>();
+			allP.add(new BasicNameValuePair("username", username));
+			allP.add(new BasicNameValuePair("password",password ));		
+			new	HttpUtil().doPost(HttpConstants.HTTP_LOGIN, allP, new ResultCallback() {
+				
+				@SuppressLint("NewApi")
+				@Override
+				public void getReslt(String result) {
+					// TODO Auto-generated method stub
+					//&& "1".equals(result)
+					if(!result.isEmpty() ){
+					
+						BaseBean b=JSON.parseObject(result, BaseBean.class);
+						
+						if("0".equals(b.getCode())){
+							
+							UserBeanData dt=JSON.parseObject(b.getData(), UserBeanData.class);
+						
+							UserBean u=JSON.parseObject(dt.getSpace(),UserBean.class);
+							ArrayList<String> userinfo =new ArrayList<String>();
+							userinfo.add(u.getUsername());
+							userinfo.add(dt.getM_auth());
+							userinfo.add(u.getUid());
+						
+							
+							mySharedPreferenceDb.setuserAVATOR(u.getAvatar_url());
+							mySharedPreferenceDb.setformhash(dt.getFormhash());
+							mySharedPreferenceDb.setage(u.getAge());
+							mySharedPreferenceDb.setsex(u.getSex());
+							mySharedPreferenceDb.setname(u.getName());
+							
+							Intent intent=new Intent();
+							intent.putStringArrayListExtra("user",userinfo);
+						
+							intent.setClass(GuideActivity.this, MainActivity_1.class);
+							startActivity(intent);
+							
+							finish();
+						
+							
+						}else{
+						
+							Toast.makeText(GuideActivity.this, b.getMsg(), Toast.LENGTH_LONG).show();
+						}
+					}else{
+						Toast.makeText(GuideActivity.this, "服务器响应失败", Toast.LENGTH_LONG).show();
+						
+					}
+				}
+			});
+		}
+		@Override
+		protected void onResume() {
+			
+			JPushInterface.onResume(GuideActivity.this);
+			super.onResume();
+		}
+
+
+		@Override
+		protected void onPause() {
+			
+			JPushInterface.onPause(GuideActivity.this);
+			super.onPause();
+		}
+
  } 
 

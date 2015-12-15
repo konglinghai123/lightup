@@ -202,7 +202,7 @@
        
         >
 
-        <EditText
+    	<EditText
             android:id="@+id/message1"
             android:layout_width="fill_parent"
             android:layout_height="88.0dip"
@@ -215,7 +215,7 @@
             android:textColorHint="#ff666666"
             android:textSize="16.0sp" >
 
-            <requestFocus />
+         
         </EditText>
 
           <View
