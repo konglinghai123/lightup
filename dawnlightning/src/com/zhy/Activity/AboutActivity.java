@@ -2,7 +2,7 @@ package com.zhy.Activity;
 
 import com.dawnlightning.ucqa.R;
 import com.dawnlightning.ucqa.R.color;
-import com.zhy.view.TitleBar;
+import com.zhy.View.TitleBar;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ public class AboutActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.about);
+		setContentView(R.layout.activity_about);
 		title=(TitleBar) findViewById(R.id.about_TitleBar);
 		title.setBackgroundColor(getResources().getColor(R.color.blue));
 		title.showLeft("关于我们",getResources().getDrawable(R.drawable.app_back), new OnClickListener(){

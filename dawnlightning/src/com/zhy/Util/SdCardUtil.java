@@ -8,7 +8,7 @@ public class SdCardUtil {
 
 	
 	//项目文件根目录
-	public static final String FILEDIR="/moodInn";
+	public static final String FILEDIR="/lightup";
 	
 	//照相机照片目录
 	public static final String FILEPHOTO="/photos";

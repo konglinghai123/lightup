@@ -27,19 +27,19 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.zhy.Bean.BaseBean;
 import com.zhy.Db.SharedPreferenceDb;
+import com.zhy.Dialog.ActionItem;
+import com.zhy.Dialog.TitlePopup;
+import com.zhy.Dialog.TitlePopup.OnItemOnClickListener;
+import com.zhy.Upload.UploadPicture;
 import com.zhy.Util.AppUtils;
 import com.zhy.Util.DataCleanManager;
 import com.zhy.Util.HttpConstants;
 import com.zhy.Util.HttpUtil;
 import com.zhy.Util.ResultCallback;
 import com.zhy.Util.SdCardUtil;
-import com.zhy.dialog.ActionItem;
-import com.zhy.dialog.TitlePopup;
-import com.zhy.dialog.TitlePopup.OnItemOnClickListener;
-import com.zhy.upload.UploadPicture;
-import com.zhy.view.TitleBar;
-import com.zhy.wheelview.NumericWheelAdapter;
-import com.zhy.wheelview.WheelView;
+import com.zhy.View.TitleBar;
+import com.zhy.Wheelview.NumericWheelAdapter;
+import com.zhy.Wheelview.WheelView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -92,7 +92,7 @@ public class UserInfoActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		  requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
-		   setContentView(R.layout.profile_content);
+		   setContentView(R.layout.activity_profilecontent);
 		   context=this;
 		   MySharedPreferenceDb=new SharedPreferenceDb(context);
 		   initview();
@@ -164,8 +164,8 @@ public class UserInfoActivity extends Activity{
 			 name.setText(MySharedPreferenceDb.getname());
 		 }
 			//给标题栏弹窗添加子类
-			titlePopup.addAction(new ActionItem(this, "上传头像", R.drawable.upload));
-			titlePopup.addAction(new ActionItem(this, "补填资料", R.drawable.tianbuzhiliao));
+			titlePopup.addAction(new ActionItem(this, "上传头像", R.drawable.ic_upload));
+			titlePopup.addAction(new ActionItem(this, "补填资料", R.drawable.ic_inputmessage));
 	}
 	private void initevent(){
 		titlePopup.setItemOnClickListener(new OnItemOnClickListener(){
@@ -192,7 +192,7 @@ public class UserInfoActivity extends Activity{
 	public void showdialog(){
 		    //获取自定义布局  
 		    LayoutInflater layoutInflater = getLayoutInflater();  
-		    View mainView= layoutInflater.inflate(R.layout.edit_userinfo, null);
+		    View mainView= layoutInflater.inflate(R.layout.dialog_edit_userinfo, null);
 		    final EditText username = (EditText) mainView.findViewById(R.id.username);
 		    final userinfo info=new userinfo();
 			final RadioButton man = (RadioButton) mainView.findViewById(R.id.male);
@@ -305,7 +305,7 @@ public class UserInfoActivity extends Activity{
 						BaseBean b=JSON.parseObject(result, BaseBean.class);
 						Log.e("result", result);
 						if("0".equals(b.getCode().toString().trim())){
-							Toast.makeText(context, b.getMsg(), Toast.LENGTH_LONG).show();
+							Toast.makeText(context, b.getMsg(), Toast.LENGTH_SHORT).show();
 							
 							MySharedPreferenceDb.setage(calculateDatePoor(info.biryear+"-"+info.birmonth+"-"+info.birday));
 							MySharedPreferenceDb.setname(info.username);
@@ -324,12 +324,12 @@ public class UserInfoActivity extends Activity{
 							}
 							
 						}else{
-							Toast.makeText(context, b.getMsg(), Toast.LENGTH_LONG).show();
+							Toast.makeText(context, b.getMsg(), Toast.LENGTH_SHORT).show();
 						
 						}
 						
 						}else{
-							Toast.makeText(context, "服务器响应失败", Toast.LENGTH_LONG).show();
+							Toast.makeText(context, "服务器响应失败", Toast.LENGTH_SHORT).show();
 							
 						}
 					
@@ -337,7 +337,7 @@ public class UserInfoActivity extends Activity{
 				
 				
 			});}else{
-				Toast.makeText(context, "网络连接断开", Toast.LENGTH_LONG).show();
+				Toast.makeText(context, "网络连接断开", Toast.LENGTH_SHORT).show();
 			}
 	}
 	private void initDay(int arg1, int arg2,WheelView day) {
@@ -436,7 +436,7 @@ public class UserInfoActivity extends Activity{
 						startActivityForResult(intent, 2);
 					} else {
 						Toast.makeText(context, "SD卡不存在",
-								Toast.LENGTH_LONG).show();
+								Toast.LENGTH_SHORT).show();
 					}
 
 					dismiss();
@@ -578,12 +578,12 @@ public class UserInfoActivity extends Activity{
 							upload(appid, input, agent, avatartype,filename);
 							
 						}else{
-							Toast.makeText(context, "上传失败", Toast.LENGTH_LONG).show();
+							Toast.makeText(context, "上传失败", Toast.LENGTH_SHORT).show();
 						
 						}
 					
 						}else{
-							Toast.makeText(context, "服务器响应失败", Toast.LENGTH_LONG).show();
+							Toast.makeText(context, "服务器响应失败", Toast.LENGTH_SHORT).show();
 							
 						}
 					
@@ -591,7 +591,7 @@ public class UserInfoActivity extends Activity{
 				
 				
 			});}else{
-				Toast.makeText(context, "网络连接断开", Toast.LENGTH_LONG).show();
+				Toast.makeText(context, "网络连接断开", Toast.LENGTH_SHORT).show();
 			}
 	}
 	private void upload(String appid,String input, String agent,String avatartype,String filename ){
@@ -610,15 +610,15 @@ public class UserInfoActivity extends Activity{
 						
 						getusericon();
 						DataCleanManager.delete(f);
-						Toast.makeText(context, "上传成功", Toast.LENGTH_LONG).show();
+						Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show();
 						
 					}else{
-						Toast.makeText(context, "上传失败", Toast.LENGTH_LONG).show();
+						Toast.makeText(context, "上传失败", Toast.LENGTH_SHORT).show();
 					
 					}
 				
 					}else{
-						Toast.makeText(context, "服务器响应失败", Toast.LENGTH_LONG).show();
+						Toast.makeText(context, "服务器响应失败", Toast.LENGTH_SHORT).show();
 						
 					}
 				
@@ -627,7 +627,7 @@ public class UserInfoActivity extends Activity{
 			
 		}).PicPost(); 
 		}else{
-			Toast.makeText(context, "网络连接断开", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "网络连接断开", Toast.LENGTH_SHORT).show();
 		}
 	}
 	private void getusericon(){
@@ -650,12 +650,12 @@ public class UserInfoActivity extends Activity{
 							File cacheDir = StorageUtils.getOwnCacheDirectory(context, SdCardUtil.FILEDIR+"/"+SdCardUtil.FILECACHE);   
 							DataCleanManager.delete(cacheDir);
 						}else{
-							Toast.makeText(context, "获取失败", Toast.LENGTH_LONG).show();
+							Toast.makeText(context, "获取失败", Toast.LENGTH_SHORT).show();
 						
 						}
 					
 						}else{
-							Toast.makeText(context, "服务器响应失败", Toast.LENGTH_LONG).show();
+							Toast.makeText(context, "服务器响应失败", Toast.LENGTH_SHORT).show();
 							
 						}
 					
@@ -663,7 +663,7 @@ public class UserInfoActivity extends Activity{
 				
 				
 			});}else{
-				Toast.makeText(context, "网络连接断开", Toast.LENGTH_LONG).show();
+				Toast.makeText(context, "网络连接断开", Toast.LENGTH_SHORT).show();
 			}
 	}
 	 public boolean onKeyDown(int keyCode, KeyEvent event) {

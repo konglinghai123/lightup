@@ -22,7 +22,8 @@ import com.zhy.Bean.Detailed;
 import com.zhy.Util.HttpConstants;
 import com.zhy.Util.HttpUtil;
 import com.zhy.Util.ResultCallback;
-import com.zhy.view.TitleBar;
+import com.zhy.View.TitleBar;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -49,7 +50,7 @@ public class CommentActivity extends Activity implements IXListViewLoadMore,IXLi
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.list_comment);
+		setContentView(R.layout.listview_comment);
 		initobject();
 		initview();
 		initevent();
@@ -136,7 +137,7 @@ public class CommentActivity extends Activity implements IXListViewLoadMore,IXLi
 						listview.stopRefresh();
 					}
 				}else{
-					Toast.makeText(context, "服务器响应失败", Toast.LENGTH_LONG).show();
+					Toast.makeText(context, "服务器响应失败", Toast.LENGTH_SHORT).show();
 					listview.stopRefresh();
 					listview.stopLoadMore();
 					}
@@ -179,7 +180,7 @@ public class CommentActivity extends Activity implements IXListViewLoadMore,IXLi
 						listview.stopLoadMore();
 					}
 				}else{
-					Toast.makeText(context, "服务器响应失败", Toast.LENGTH_LONG).show();
+					Toast.makeText(context, "服务器响应失败", Toast.LENGTH_SHORT).show();
 					listview.stopRefresh();
 					listview.stopLoadMore();
 					

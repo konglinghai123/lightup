@@ -6,7 +6,25 @@ import java.util.Date;
 import android.annotation.SuppressLint;
 
 public class MessageBean  {
+	private static final long ONE_MINUTE = 60000L;  
+    private static final long ONE_HOUR = 3600000L;  
+    private static final long ONE_DAY = 86400000L;  
+    private static final long ONE_WEEK = 604800000L;  
+  
+    private static final String ONE_SECOND_AGO = "秒前";  
+    private static final String ONE_MINUTE_AGO = "分钟前";  
+    private static final String ONE_HOUR_AGO = "小时前";  
+    private static final String ONE_DAY_AGO = "天前";  
+    private static final String ONE_MONTH_AGO = "月前";  
+    private static final String ONE_YEAR_AGO = "年前";  
 	private String note;
+	private String author;
+	private String name;
+	private String link;
+	private String message;
+	private String isnew;
+	private String uid;
+	private String bwztid;
 	public String getNote() {
 		return note;
 	}
@@ -19,41 +37,19 @@ public class MessageBean  {
 	public void setLink(String link) {
 		this.link = link;
 	}
-	private String link;
-	public MessageBean(String note, String link) {
-		super();
-		this.note = note;
-		this.link = link;
-	}
-	private static final long ONE_MINUTE = 60000L;  
-    private static final long ONE_HOUR = 3600000L;  
-    private static final long ONE_DAY = 86400000L;  
-    private static final long ONE_WEEK = 604800000L;  
-  
-    private static final String ONE_SECOND_AGO = "秒前";  
-    private static final String ONE_MINUTE_AGO = "分钟前";  
-    private static final String ONE_HOUR_AGO = "小时前";  
-    private static final String ONE_DAY_AGO = "天前";  
-    private static final String ONE_MONTH_AGO = "月前";  
-    private static final String ONE_YEAR_AGO = "年前";  
-	private String author;
-	private String name;
-	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	private String message;
+	
 	public String getAuthor() {
 		return author;
 	}
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
-	
 	public String getMessage() {
 		return message;
 	}
@@ -136,14 +132,37 @@ public class MessageBean  {
 	public MessageBean(){
 		
 	}
-	public MessageBean(String note, String link, String author, String name,
-			String message, String dateline) {
+	
+	public MessageBean(String note, String author, String name, String link,
+			String message, String isnew, String uid, String bwztid,
+			String dateline) {
 		super();
 		this.note = note;
-		this.link = link;
 		this.author = author;
 		this.name = name;
+		this.link = link;
 		this.message = message;
+		this.isnew = isnew;
+		this.uid = uid;
+		this.bwztid = bwztid;
 		this.dateline = dateline;
+	}
+	public String getIsnew() {
+		return isnew;
+	}
+	public void setIsnew(String isnew) {
+		this.isnew = isnew;
+	}
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+	public String getBwztid() {
+		return bwztid;
+	}
+	public void setBwztid(String bwztid) {
+		this.bwztid = bwztid;
 	}
 }

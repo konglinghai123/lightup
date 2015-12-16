@@ -1,4 +1,4 @@
-package com.zhy.view;
+package com.zhy.View;
 
 import java.util.List;
 
@@ -146,7 +146,7 @@ public class TitleBar extends RelativeLayout {
 	
 	public void showSelection(List<String> List,OnItemSelectedListener listener,Context context){
 		selection.setVisibility(View.VISIBLE);
-		ArrayAdapter<String> adapter=new ArrayAdapter<String>(context,R.layout.spinner_item,List); 
+		ArrayAdapter<String> adapter=new ArrayAdapter<String>(context,R.layout.item_spinner,List); 
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
 		selection.setAdapter(adapter);    
 		selection.setOnItemSelectedListener(listener);    

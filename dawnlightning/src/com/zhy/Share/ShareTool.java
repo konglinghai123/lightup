@@ -16,6 +16,7 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.Platform.ShareParams;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
 import cn.sharesdk.wechat.utils.WechatHelper;
@@ -62,7 +63,7 @@ public class ShareTool
 
     public void showShareWindow()
     {
-        View view = LayoutInflater.from(context).inflate(R.layout.share_layout, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_share, null);
         GridView gridView = (GridView) view.findViewById(R.id.share_gridview);
         ShareAdapter adapter = new ShareAdapter(context);
         gridView.setAdapter(adapter);
@@ -127,7 +128,7 @@ public class ShareTool
             ShareParams sp = new ShareParams();
             sp.setShareType(Platform.SHARE_WEBPAGE);
 
-            sp.setTitle(shareModel.getText());
+            sp.setTitle(shareModel.getTitle());
             sp.setText(shareModel.getText());
             sp.setUrl(shareModel.getUrl());
             sp.setImageUrl(shareModel.getImageUrl());
@@ -208,9 +209,7 @@ public class ShareTool
     sp.setShareType(Platform.SHARE_WEBPAGE);
     sp.title = shareParams.getTitle();
     sp.text = shareParams.getText();
-    sp.imageData=((BitmapDrawable)context.getResources().getDrawable(R.drawable.mylogo)).getBitmap();
-    //sp.imageData = 
-    sp.imageUrl="http://www.wyl.cc/wp-content/uploads/2014/02/10060381306b675f5c5.jpg";
+    sp.imageData=((BitmapDrawable)context.getResources().getDrawable(R.drawable.mylogo)).getBitmap(); 
     sp.url = shareParams.getUrl(); 
    
    
@@ -220,7 +219,7 @@ public class ShareTool
     
     {
    
-    plat = ShareSDK.getPlatform(Wechat.NAME);
+    plat = ShareSDK.getPlatform(context, Wechat.NAME);
     
     }
     
@@ -228,7 +227,7 @@ public class ShareTool
    
     {
  
-    plat = ShareSDK.getPlatform(WechatMoments.NAME);
+    plat = ShareSDK.getPlatform(context, WechatMoments.NAME);
     
     }
     
@@ -239,7 +238,8 @@ public class ShareTool
     }
    
     private void qq() {
-        ShareParams sp = new ShareParams();
+        QQ.ShareParams sp = new QQ.ShareParams();
+        sp.setShareType(Platform.SHARE_WEBPAGE);
         sp.setTitle(shareParams.getTitle());
         sp.setTitleUrl(shareParams.getUrl()); // 标题的超链接
         sp.setText(shareParams.getText());
@@ -248,6 +248,7 @@ public class ShareTool
         sp.setSite(shareParams.getTitle());
         sp.setSiteUrl(shareParams.getUrl());
         Platform qq = ShareSDK.getPlatform(context, "QQ");
+        
         qq.setPlatformActionListener(platformActionListener);
         qq.share(sp);
     }

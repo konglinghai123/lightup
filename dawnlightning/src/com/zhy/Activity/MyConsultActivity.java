@@ -23,7 +23,7 @@ import com.zhy.Util.AppUtils;
 import com.zhy.Util.HttpConstants;
 import com.zhy.Util.HttpUtil;
 import com.zhy.Util.ResultCallback;
-import com.zhy.view.TitleBar;
+import com.zhy.View.TitleBar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -55,7 +55,7 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.tab1);
+		setContentView(R.layout.fragment_consult);
 		context=this;
 		list=new ArrayList(); 
 		adapter = new ConsultAdapter(context,list); 
@@ -153,7 +153,7 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 						 }else{
 							 	adapter.clearList();
 							 	adapter.notifyDataSetChanged();
-								Toast.makeText(context,"没有更多的咨询", Toast.LENGTH_LONG).show();
+								Toast.makeText(context,"没有更多的咨询", Toast.LENGTH_SHORT).show();
 								newsListView.stopRefresh(getDate());
 							
 						 }
@@ -162,7 +162,7 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 					
 					}
 				}else{
-					Toast.makeText(context, "服务器响应失败", Toast.LENGTH_LONG).show();
+					Toast.makeText(context, "服务器响应失败", Toast.LENGTH_SHORT).show();
 					newsListView.stopRefresh(getDate());
 					
 					}
@@ -173,7 +173,7 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 	
 		
 		});}else{
-			Toast.makeText(context, "网络连接失败", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "网络连接失败", Toast.LENGTH_SHORT).show();
 		}}
 		
 	public void moreloaddata(int currentpage,String url,List<NameValuePair> parms){
@@ -227,7 +227,7 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 							newsListView.stopLoadMore();
 						}
 					}else{
-						Toast.makeText(context, "服务器响应失败", Toast.LENGTH_LONG).show();
+						Toast.makeText(context, "服务器响应失败", Toast.LENGTH_SHORT).show();
 					
 						newsListView.stopLoadMore();
 						}
@@ -238,7 +238,7 @@ public class MyConsultActivity extends Activity implements IXListViewRefreshList
 		
 			
 			});}else{
-				Toast.makeText(context, "网络连接失败", Toast.LENGTH_LONG).show();
+				Toast.makeText(context, "网络连接失败", Toast.LENGTH_SHORT).show();
 			}
 }
 	public String getDate(){

@@ -5,7 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-import com.dawnlightning.Frag.MainFragment;
+import com.zhy.Frag.MainFragment;
 import com.zhy.Util.HttpConstants;
 
 import android.app.AlertDialog;
@@ -128,7 +128,7 @@ public class UpdateManager {
         // 构造对话框
         AlertDialog.Builder builder = new Builder(mContext);
         builder.setTitle("更新提醒");
-        builder.setMessage("");
+        builder.setMessage(mHashMap.get("note"));
         // 更新
         builder.setPositiveButton("更新", new OnClickListener()
         {
@@ -154,6 +154,15 @@ public class UpdateManager {
         Dialog noticeDialog = builder.create();
         noticeDialog.show();
     }
-
+    public String getversionname(){
+    try {
+		return mContext.getPackageManager().getPackageInfo("com.dawnlightning.ucqa", 0).versionName;
+	} catch (NameNotFoundException e) {
+		// TODO 自动生成的 catch 块
+		e.printStackTrace();
+		
+	}
+    	return "";
+    }
 
 }

@@ -7,12 +7,18 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
+
+
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.dawnlightning.Frag.ConsultFrag;
 import com.dawnlightning.ucqa.R;
+import com.mob.tools.utils.UIHandler;
+
 
 import com.zhy.Adapter.ContentAdapter;
 import com.zhy.Bean.BaseBean;
@@ -20,14 +26,17 @@ import com.zhy.Bean.Comment;
 import com.zhy.Bean.Detailed;
 import com.zhy.Bean.Pics;
 import com.zhy.Db.SharedPreferenceDb;
+import com.zhy.Dialog.ActionItem;
+import com.zhy.Dialog.TitlePopup;
+import com.zhy.Dialog.TitlePopup.OnItemOnClickListener;
+import com.zhy.Frag.ConsultFrag;
+import com.zhy.Share.ShareModel;
+import com.zhy.Share.ShareTool;
 import com.zhy.Util.AppUtils;
 import com.zhy.Util.HttpConstants;
 import com.zhy.Util.HttpUtil;
 import com.zhy.Util.ResultCallback;
-import com.zhy.dialog.ActionItem;
-import com.zhy.dialog.TitlePopup;
-import com.zhy.dialog.TitlePopup.OnItemOnClickListener;
-import com.zhy.view.TitleBar;
+import com.zhy.View.TitleBar;
 
 import android.annotation.SuppressLint;
 
@@ -39,10 +48,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import android.os.Bundle;
+import android.os.Message;
+import android.os.Handler.Callback;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -53,7 +65,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class MyConsultContentActivity extends BaseActivity {
+public class MyConsultContentActivity extends BaseActivity implements PlatformActionListener, Callback {
 	
 	private ArrayList<String> message;
 	private Context context;
@@ -70,11 +82,12 @@ public class MyConsultContentActivity extends BaseActivity {
 	private int page=1;
 	private int totlenum=0;
 	private TitlePopup titlePopup;
+	 private ShareTool Share;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.news_content);
+		setContentView(R.layout.activity_content);
 		initview();
 		initdata();
 		
@@ -103,7 +116,7 @@ public class MyConsultContentActivity extends BaseActivity {
 		titlePopup = new TitlePopup(this, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		//给标题栏弹窗添加子类
 		titlePopup.addAction(new ActionItem(this, "删除咨询", R.drawable.guanbizhixun));
-		titlePopup.addAction(new ActionItem(this, "采纳关闭", R.drawable.cainazhixun));
+		titlePopup.addAction(new ActionItem(this, "采纳关闭", R.drawable.ic_accept));
 		titlePopup.setItemOnClickListener(new OnItemOnClickListener(){
 
 			@Override
@@ -141,7 +154,7 @@ public class MyConsultContentActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				if(detailed.getComment().size()!=0){
+				if(totlenum!=0){
 					Intent i=new Intent();
 					i.setClass(context, CommentActivity.class);
 					i.putStringArrayListExtra("message", message);
@@ -153,7 +166,17 @@ public class MyConsultContentActivity extends BaseActivity {
 			}
 			
 		});
+		share.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				share();
+				
+			}
+			
+		});
 	}
+	
 	class backlistener implements OnClickListener{
 
 		@Override
@@ -275,12 +298,12 @@ public class MyConsultContentActivity extends BaseActivity {
 					if("0".equals(b.getCode().toString().trim())){
 						
 						
-						 Toast.makeText(context, "评论成功", Toast.LENGTH_LONG).show();
-						 totlenum=Integer.parseInt(message.get(message.size()-1))+1;
+						 Toast.makeText(context, "评论成功", Toast.LENGTH_SHORT).show();
+						 totlenum=totlenum+1;
 						 totalreplay.setText(String.valueOf(totlenum));
 						 
 					}else{
-						Toast.makeText(context, "评论失败", Toast.LENGTH_LONG).show();
+						Toast.makeText(context, "评论失败", Toast.LENGTH_SHORT).show();
 					
 					}
 				
@@ -293,7 +316,7 @@ public class MyConsultContentActivity extends BaseActivity {
 			
 			
 		});}else{
-			Toast.makeText(context, "网络连接断开", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "网络连接断开",Toast.LENGTH_SHORT).show();
 		}
 	
 	}
@@ -321,7 +344,7 @@ public class MyConsultContentActivity extends BaseActivity {
 						detailed=new Detailed();
 						 detailed.setAge(js.getString("age"));
 						 detailed.setContent(js.getString("message"));
-						 detailed.setDatetime( TimeStamp2Date(js.getString("dateline")));
+						 detailed.setDatetime( js.getString("dateline"));
 						 detailed.setSubject(js.getString("subject"));
 						 detailed.setUid(js.getString("uid"));
 						 detailed.setUsename(js.getString("username"));
@@ -362,7 +385,7 @@ public class MyConsultContentActivity extends BaseActivity {
 						 
 					}
 				}else{
-					Toast.makeText(context, "服务器响应失败", Toast.LENGTH_LONG).show();
+					Toast.makeText(context, "服务器响应失败", Toast.LENGTH_SHORT).show();
 					 close();
 					
 					
@@ -374,7 +397,7 @@ public class MyConsultContentActivity extends BaseActivity {
 	
 		
 		});}else{
-			Toast.makeText(context, "网络连接断开", Toast.LENGTH_LONG).show();}
+			Toast.makeText(context, "网络连接断开", Toast.LENGTH_SHORT).show();}
 		}
 	public  Bitmap decodeResource(Resources resources, int id) {  
 		  
@@ -395,19 +418,12 @@ public class MyConsultContentActivity extends BaseActivity {
 	}  
 	
 	public void showToast(String str){
-		Toast.makeText(context, str, Toast.LENGTH_LONG).show();
+		Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
 	}
-	public String TimeStamp2Date(String timestampString){  
-		  Long timestamp = Long.parseLong(timestampString)*1000;  
-		  String date = new java.text.SimpleDateFormat("yyyy年MM月dd日 HH时mm分").format(new java.util.Date(timestamp));  
-		  return date;  
-		}
-	
-
 	
 	protected void showUpdataDialog() {
 
-        final com.zhy.dialog.CustomDialogUpd.Builder builder = new com.zhy.dialog.CustomDialogUpd.Builder(context);
+        final com.zhy.Dialog.CustomDialogUpd.Builder builder = new com.zhy.Dialog.CustomDialogUpd.Builder(context);
         builder.setTitle("发表评论");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
@@ -429,7 +445,80 @@ public class MyConsultContentActivity extends BaseActivity {
         builder.create().show();
     }
 
-	 
+	private void share(){
+		Share= new ShareTool(context);
+        Share.setPlatformActionListener(MyConsultContentActivity.this);
+        ShareModel model = new ShareModel();
+        model.setImageUrl("https://ucqa.dawnlightning.com/capi/app/lightup_logo.png");
+        model.setText(detailed.getContent());
+        model.setTitle(detailed.getSubject());
+        model.setUrl("https://ucqa.dawnlightning.com/capi/turn.php?a=1&b=2&c=3");
+        Share.initShareParams(model);
+        Share.showShareWindow();
+	 }
+	
+	 @Override
+	    public void onCancel(Platform arg0, int arg1)
+	    {	
+		 
+	        Message msg = new Message();
+	        msg.what = 0;
+	        UIHandler.sendMessage(msg, this);
+	        Share.dismiss();
+	    }
+
+	    @Override
+	    public void onComplete(Platform plat, int action, HashMap<String, Object> res)
+	    {
+	        Message msg = new Message();
+	        Log.e("Tag", "sharecomplete");
+	        msg.arg1 = 1;
+	        msg.arg2 = action;
+	        msg.obj = plat;
+	        UIHandler.sendMessage(msg, this);
+	        Share.dismiss();
+	    }
+
+	    @Override
+	    public void onError(Platform arg0, int arg1, Throwable arg2)
+	    {	 Log.e("Tag", "error");
+	        Message msg = new Message();
+	        msg.what = 1;
+	        UIHandler.sendMessage(msg, this);
+	        Share.dismiss();
+	    }
+
+	    @Override
+	    public boolean handleMessage(Message msg)
+	    {
+	        int what = msg.what;
+	        if (what == 1)
+	        {
+	            Toast.makeText(this, "分享失败", Toast.LENGTH_SHORT).show();
+	            Share.dismiss();
+	        }else{
+	       
+	            Share.dismiss();
+	        }
+	        
+	        return false;
+	    }
+
+	   
+
+	    public boolean onKeyDown(int keyCode, KeyEvent event) {
+	        if (keyCode == KeyEvent.KEYCODE_BACK) {
+	           
+	           finish();
+	        }
+	        return super.onKeyDown(keyCode, event);
+	    }
+
+		@Override
+		protected void onDestroy() {
+			System.gc();
+			super.onDestroy();
+		}
 	
 
 	

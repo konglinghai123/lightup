@@ -59,7 +59,9 @@ import com.zhy.Adapter.GridViewAdapter;
 import com.zhy.Bean.BaseBean;
 import com.zhy.Bean.SendConsult;
 import com.zhy.Db.SharedPreferenceDb;
+import com.zhy.Frag.ConsultFrag;
 
+import com.zhy.Upload.UploadPicture;
 import com.zhy.Util.AppUtils;
 import com.zhy.Util.DataCleanManager;
 import com.zhy.Util.HttpConstants;
@@ -67,12 +69,10 @@ import com.zhy.Util.HttpUtil;
 import com.zhy.Util.ResultCallback;
 import com.zhy.Util.SdCardUtil;
 import com.zhy.Util.TimeUtil;
-import com.dawnlightning.Frag.ConsultFrag;
+import com.zhy.View.TitleBar;
 import com.dawnlightning.ucqa.R;
 
 
-import com.zhy.upload.UploadPicture;
-import com.zhy.view.TitleBar;
 public class ConsultActivity extends BaseActivity {
 	private TitleBar titlebar;
 	private SendConsult content=new SendConsult();;
@@ -97,11 +97,12 @@ public class ConsultActivity extends BaseActivity {
 	List<String> listvisor=new ArrayList();
 	String fileName = String.valueOf(System.currentTimeMillis()) + ".jpg"; 
 	List<String> Listpicid=new ArrayList();
+	private static Boolean IsSend=false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.consult);
+		setContentView(R.layout.activity_writeconsult);
 		initobject();
 		initview();
 		getspinnerdate();
@@ -124,7 +125,7 @@ public class ConsultActivity extends BaseActivity {
 		radiogroup=(RadioGroup) findViewById(R.id.sex);
 		man=(RadioButton) findViewById(R.id.male);
 		gridView = (GridView) findViewById(R.id.gridView);
-		allImages.add(BitmapFactory.decodeResource(getResources(), R.drawable.icon_addpic_focused));
+		allImages.add(BitmapFactory.decodeResource(getResources(), R.drawable.ic_addpic_focused));
 		gridAdapter = new GridViewAdapter(context, allImages);
 		gridView.setAdapter(gridAdapter);
 		
@@ -432,7 +433,7 @@ public class ConsultActivity extends BaseActivity {
 		 titlebar.setBackgroundColor(getResources().getColor(R.color.blue));
 		 
 		
-		 titlebar.showLeftAndRight("发布咨询", getResources().getDrawable(R.drawable.app_back),getResources().getDrawable(R.drawable.edit),new OnClickListener(){
+		 titlebar.showLeftAndRight("发布咨询", getResources().getDrawable(R.drawable.app_back),getResources().getDrawable(R.drawable.ic_edit),new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
@@ -445,6 +446,8 @@ public class ConsultActivity extends BaseActivity {
 				
 				@Override
 				public void onClick(View arg0) {
+					if(!IsSend){
+						IsSend=true;
 					content.setAge(age.getText().toString().trim());
 					content.setSubject(subject.getText().toString().trim());
 					content.setMessage(message.getText().toString().trim());
@@ -453,8 +456,9 @@ public class ConsultActivity extends BaseActivity {
 						
 					}else{
 						Toast.makeText(context, "咨询不完整", Toast.LENGTH_LONG).show();
+						IsSend=false;
 					}
-					
+					}
 					
 				}
 			});
@@ -538,7 +542,7 @@ public class ConsultActivity extends BaseActivity {
 	}
 	private void initspinner() {
 		
-		ArrayAdapter<String> adapterclass=new ArrayAdapter<String>(context,R.layout.spinner_item,listclass); 
+		ArrayAdapter<String> adapterclass=new ArrayAdapter<String>(context,R.layout.item_spinner,listclass); 
 		adapterclass.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
 		bwztclassid.setAdapter(adapterclass);
 		
@@ -548,8 +552,7 @@ public class ConsultActivity extends BaseActivity {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				
-                 //showPrice(position);  
+			 
                   TextView tv = (TextView)arg1;  
                   tv.setTextColor(getResources().getColor(R.color.black));    //设置颜色  
                   tv.setGravity(android.view.Gravity.CENTER_HORIZONTAL);   //设置居中  
@@ -567,7 +570,7 @@ public class ConsultActivity extends BaseActivity {
 			
 		});
 		bwztclassid.setSelection(1,true);
-		ArrayAdapter<String> adaptervisor=new ArrayAdapter<String>(context,R.layout.spinner_item,listvisor); 
+		ArrayAdapter<String> adaptervisor=new ArrayAdapter<String>(context,R.layout.item_spinner,listvisor); 
 		adaptervisor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
 		bwztvisorid.setAdapter(adaptervisor);
 		bwztvisorid.setSelection(0,true);
@@ -643,14 +646,14 @@ public class ConsultActivity extends BaseActivity {
 							}
 							
 						}else{
-							Toast.makeText(ConsultActivity.this, "图片上传失败", Toast.LENGTH_LONG).show();
+							Toast.makeText(ConsultActivity.this, "图片上传失败", Toast.LENGTH_SHORT).show();
 							uploadstuats.add(1);
 							close();
 						
 						}
 					
 						}else{
-							Toast.makeText(ConsultActivity.this, "服务器响应失败", Toast.LENGTH_LONG).show();
+							Toast.makeText(ConsultActivity.this, "服务器响应失败", Toast.LENGTH_SHORT).show();
 							uploadstuats.add(1);
 							close();
 							
@@ -706,18 +709,18 @@ public class ConsultActivity extends BaseActivity {
 								File f=new File(imageUrl.get(i));
 								DataCleanManager.delete(f);
 							}
-							Toast.makeText(ConsultActivity.this, "发布成功", Toast.LENGTH_LONG).show();
+							Toast.makeText(ConsultActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
 							close();
 							ConsultFrag.newsListView.startRefresh();
 			                ConsultActivity.this.finish();
 							
 						}else{
-							Toast.makeText(ConsultActivity.this, "发布失败", Toast.LENGTH_LONG).show();
+							Toast.makeText(ConsultActivity.this, "发布失败", Toast.LENGTH_SHORT).show();
 							close();
 						}
 					
 						}else{
-							Toast.makeText(ConsultActivity.this, "服务器响应失败", Toast.LENGTH_LONG).show();
+							Toast.makeText(ConsultActivity.this, "服务器响应失败", Toast.LENGTH_SHORT).show();
 							close();
 						}
 					
@@ -725,7 +728,7 @@ public class ConsultActivity extends BaseActivity {
 				
 				
 			});}else{
-				Toast.makeText(ConsultActivity.this, "网络连接断开", Toast.LENGTH_LONG).show();
+				Toast.makeText(ConsultActivity.this, "网络连接断开", Toast.LENGTH_SHORT).show();
 			}
 	}
 	@Override

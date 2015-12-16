@@ -5,7 +5,7 @@
 		>
 		<item
 				android:state_pressed="true"
-				android:drawable="@drawable/icon_shanchu_focused" />
+				android:drawable="@drawable/ic_close_pressed" />
 		<item
-				android:drawable="@drawable/icon_shanchu_unfocused" />
+				android:drawable="@drawable/ic_close_normal" />
 </selector>

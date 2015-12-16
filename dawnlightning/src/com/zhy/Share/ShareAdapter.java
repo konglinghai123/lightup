@@ -52,7 +52,7 @@ public class ShareAdapter extends BaseAdapter
     {
         if (convertView == null)
         {
-            convertView = inflater.inflate(R.layout.share_item, null);
+            convertView = inflater.inflate(R.layout.item_share, null);
         }
         ImageView shareIcon = (ImageView) convertView.findViewById(R.id.share_icon);
         TextView shareTitle = (TextView) convertView.findViewById(R.id.share_title);

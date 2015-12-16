@@ -49,7 +49,7 @@ public class MessageAdapter extends BaseAdapter {
 		ViewHolder viewHolder = null;
 		if (layout == null) {
 			layout = (LinearLayout) layoutInflater.inflate(
-					R.layout.pinglun_listview_item, null);
+					R.layout.item_listview_comment, null);
 			
 			viewHolder=new ViewHolder();
 			viewHolder.tvName=(TextView)layout.findViewById(R.id.pinglunName);

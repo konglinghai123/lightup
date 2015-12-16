@@ -1,4 +1,4 @@
-package com.zhy.dialog;
+package com.zhy.Dialog;
 
 import android.content.Context;
 import android.view.View;

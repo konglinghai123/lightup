@@ -124,7 +124,7 @@ public class ConsultAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (null == convertView) {
 		
-			convertView = layoutInflater.inflate(R.layout.consult_items, null);
+			convertView = layoutInflater.inflate(R.layout.item_consult, null);
 			holder = new ViewHolder();
 			holder.suject=(TextView) convertView.findViewById(R.id.subject);
 			holder.pic=(ImageView) convertView.findViewById(R.id.consultpic);
@@ -156,9 +156,9 @@ public class ConsultAdapter extends BaseAdapter{
 				holder.pic.setVisibility(holder.pic.GONE);
 			
 			}
-			Log.e("status",item.getStatus());
+			
 			if(item.getStatus().contains("1")){
-				holder.status.setBackground(context.getResources().getDrawable(R.drawable.jiejue));
+				holder.status.setBackground(context.getResources().getDrawable(R.drawable.ic_ok));
 			}else{
 				holder.status.setBackground(null);
 			}

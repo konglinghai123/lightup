@@ -17,7 +17,7 @@
  *  limitations under the License.
  */
 
-package com.zhy.wheelview;
+package com.zhy.Wheelview;
 
 import java.util.LinkedList;
 import java.util.List;

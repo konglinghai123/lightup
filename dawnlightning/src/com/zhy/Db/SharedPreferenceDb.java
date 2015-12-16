@@ -129,4 +129,23 @@ public class SharedPreferenceDb {
 		SharedPreferences sp=context.getSharedPreferences(DbConstants.DB_lOGIN, Context.MODE_PRIVATE);
 		return sp.getString(DbConstants.KEY_NAME, "");
 	}
+	public void setIsUpdateShow(Boolean Is){
+		SharedPreferences sp=context.getSharedPreferences(DbConstants.DB_IS_INSTALL, Context.MODE_PRIVATE);
+		sp.edit().putBoolean(DbConstants.KEY_UPDATESHOW, Is).commit();
+	}
+	
+	public boolean getIsUpdateShow(){
+		SharedPreferences sp=context.getSharedPreferences(DbConstants.DB_IS_INSTALL, Context.MODE_PRIVATE);
+		return sp.getBoolean(DbConstants.KEY_UPDATESHOW, false);
+	}
+	
+	public void setMessageCount(int count){
+		SharedPreferences sp=context.getSharedPreferences(DbConstants.DB_lOGIN, Context.MODE_PRIVATE);
+		sp.edit().putInt(DbConstants.KEY_READMESSAGE, count).commit();
+	}
+	
+	public int getMessageCount(){
+		SharedPreferences sp=context.getSharedPreferences(DbConstants.DB_lOGIN, Context.MODE_PRIVATE);
+		return sp.getInt(DbConstants.KEY_READMESSAGE,0);
+	}
 }

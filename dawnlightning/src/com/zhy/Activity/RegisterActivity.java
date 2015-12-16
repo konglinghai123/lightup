@@ -18,9 +18,9 @@ import com.zhy.Util.AppUtils;
 import com.zhy.Util.HttpConstants;
 import com.zhy.Util.HttpUtil;
 import com.zhy.Util.ResultCallback;
+import com.zhy.View.EditTextWithDel;
+import com.zhy.View.TitleBar;
 
-import com.zhy.view.EditTextWithDel;
-import com.zhy.view.TitleBar;
 
 
 import android.annotation.SuppressLint;
@@ -66,7 +66,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,On
 	protected void onCreate(Bundle arg0) {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
-		setContentView(R.layout.register);
+		setContentView(R.layout.activity_register);
 		context=this;
 		initViews();
 		
@@ -121,12 +121,12 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,On
 						
 						
 					}else{
-						Toast.makeText(RegisterActivity.this, b.getMsg(), Toast.LENGTH_LONG).show();
+						Toast.makeText(RegisterActivity.this, b.getMsg(), Toast.LENGTH_SHORT).show();
 						close();
 					}
 				
 					}else{
-						Toast.makeText(RegisterActivity.this, "服务器响应失败", Toast.LENGTH_LONG).show();
+						Toast.makeText(RegisterActivity.this, "服务器响应失败", Toast.LENGTH_SHORT).show();
 						close();
 					}
 				
@@ -229,7 +229,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,On
 	}
 	
 	public void showToast(String str){
-		Toast.makeText(RegisterActivity.this, str, Toast.LENGTH_LONG).show();
+		Toast.makeText(RegisterActivity.this, str, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
@@ -280,14 +280,11 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,On
 						Intent intent=new Intent();
 						intent.putStringArrayListExtra("user",userinfo);
 					
-						intent.setClass(context, MainActivity_1.class);
+						intent.setClass(context, MainActivity.class);
 						startActivity(intent);
 						
 						finish();
-						if(new SharedPreferenceDb(context).getAnimation()==true){
-							overridePendingTransition(R.anim.slide_left,
-									R.anim.slide_right);
-						}
+						
 						close();
 					}else{
 						showToast(b.getMsg());
@@ -295,7 +292,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,On
 					
 					}
 				}else{
-					Toast.makeText(context, "服务器响应失败", Toast.LENGTH_LONG).show();
+					Toast.makeText(context, "服务器响应失败", Toast.LENGTH_SHORT).show();
 					close();
 				}
 			}

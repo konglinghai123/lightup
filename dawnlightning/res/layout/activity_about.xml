@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+     android:background="@drawable/bg_white"
+     >
+      <com.zhy.View.TitleBar
+        android:id="@+id/about_TitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true" >
+    </com.zhy.View.TitleBar>
+     <RelativeLayout 
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+         >
+	<ImageView 
+	    android:id="@+id/logo"
+	    android:layout_marginTop="20dp"
+	   
+	    android:layout_width="120dp"
+	    android:layout_height="120dp"
+	    
+	    android:layout_centerInParent="true"
+	    android:layout_alignParentTop="true"
+	    android:layout_gravity="center_horizontal"
+	    android:src="@drawable/mylogo"
+	    />
+
+	<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/logo"
+	    android:layout_marginTop="22dp"
+	    android:text="       擅长白内障超声乳化、青光眼、脑外伤等眼科手术及眼前段激光治疗、儿童斜视、弱视诊断及远视、近视、散光的诊治" />
+
+	<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginBottom="15dp"
+	    android:paddingLeft="20dp"
+	    android:text="Power by LigthUp"
+	    android:textColor="@color/nomalGray"
+	    android:textSize="14sp" />
+		
+	</RelativeLayout>
+</LinearLayout>

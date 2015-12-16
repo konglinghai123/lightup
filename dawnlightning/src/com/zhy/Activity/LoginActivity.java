@@ -15,9 +15,9 @@ import com.zhy.Util.HttpConstants;
 import com.zhy.Util.HttpUtil;
 import com.zhy.Util.MoodApplication;
 import com.zhy.Util.ResultCallback;
+import com.zhy.View.EditTextWithDel;
+import com.zhy.View.TitleBar;
 import com.dawnlightning.ucqa.R;
-import com.zhy.view.EditTextWithDel;
-import com.zhy.view.TitleBar;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -61,7 +61,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
 	
-		setContentView(R.layout.userlogin);
+		setContentView(R.layout.activity_userlogin);
 		 initViews();
 		Intent recintent=getIntent();
 		if(recintent!=null){
@@ -208,7 +208,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				// TODO Auto-generated method stub
 				//&& "1".equals(result)
 				if(!result.isEmpty() ){
-					Log.e("avater", result);
+				
 					BaseBean b=JSON.parseObject(result, BaseBean.class);
 					
 					if("0".equals(b.getCode())){
@@ -221,17 +221,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						userinfo.add(dt.getM_auth());
 						userinfo.add(u.getUid());
 					
-						Log.e("avater", u.getAvatar_url());
+						
 						if(IsSave.isChecked()){
 							mySharedPreferenceDb.setName( username);
 							mySharedPreferenceDb.setUserId(password);
 							mySharedPreferenceDb.setuserAutoLogin(true);
 						}
 						
-						if(mySharedPreferenceDb.getAnimation()==true){
-							overridePendingTransition(R.anim.slide_left,
-									R.anim.slide_right);
-						}
+						
 						mySharedPreferenceDb.setuserAVATOR(u.getAvatar_url());
 						mySharedPreferenceDb.setformhash(dt.getFormhash());
 						mySharedPreferenceDb.setage(u.getAge());
@@ -241,7 +238,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						Intent intent=new Intent();
 						intent.putStringArrayListExtra("user",userinfo);
 					
-						intent.setClass(LoginActivity.this, MainActivity_1.class);
+						intent.setClass(LoginActivity.this, MainActivity.class);
 						startActivity(intent);
 						
 						finish();
@@ -254,7 +251,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						etPassWord.setText(password);
 					}
 				}else{
-					Toast.makeText(LoginActivity.this, "服务器响应失败", Toast.LENGTH_LONG).show();
+					Toast.makeText(LoginActivity.this, "服务器响应失败", Toast.LENGTH_SHORT).show();
 					close();
 				}
 			}
@@ -262,7 +259,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	}
 	
 	public void showToast(String str){
-		Toast.makeText(LoginActivity.this, str, Toast.LENGTH_LONG).show();
+		Toast.makeText(LoginActivity.this, str, Toast.LENGTH_SHORT).show();
 	}
 	
 	 public boolean onKeyDown(int keyCode, KeyEvent event) {

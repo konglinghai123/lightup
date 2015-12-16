@@ -3,6 +3,7 @@ package com.zhy.Activity;
 import android.annotation.SuppressLint;
 
 import android.os.Bundle;
+import android.os.Handler;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,6 +70,7 @@ public class GuideActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) { 
         super.onCreate(savedInstanceState); 
         mySharedPreferenceDb=new SharedPreferenceDb(this);
+        mySharedPreferenceDb.setIsUpdateShow(false);
          if(mySharedPreferenceDb.getIsFirstInstall()){
         	 if(mySharedPreferenceDb.getAutoLogin()==false){
         	 Intent i=new Intent();
@@ -77,9 +79,12 @@ public class GuideActivity extends BaseActivity {
         	 finish();
         	 }else{
         		 if(mySharedPreferenceDb.getName()!=""&&mySharedPreferenceDb.getUserId()!=""){
-     			 	
-     				login(mySharedPreferenceDb.getName(),mySharedPreferenceDb.getUserId());
-     				
+        			
+     				//login(mySharedPreferenceDb.getName(),mySharedPreferenceDb.getUserId());
+        			Intent i=new Intent();
+      	        	i.setClass(this, WelcomeActivity.class);
+      	        	startActivity(i);
+      	        	finish();
      			}else{
      				
      				Intent i=new Intent();
@@ -93,18 +98,18 @@ public class GuideActivity extends BaseActivity {
         //将要分页显示的View装入数组中 
         inflater= getLayoutInflater(); 
         pageViews = new ArrayList<View>(); 
-        View view1=inflater.inflate(R.layout.viewpager_page1, null);
+        View view1=inflater.inflate(R.layout.guide_page_1, null);
        
-        view1.setBackgroundDrawable(getbmp(R.drawable.g1)); 
+        view1.setBackgroundDrawable(getbmp(R.drawable.guide_1)); 
         
-        View view2=inflater.inflate(R.layout.viewpager_page2, null);
+        View view2=inflater.inflate(R.layout.guide_page_2, null);
       
-        view2.setBackgroundDrawable(getbmp(R.drawable.g2)); 
+        view2.setBackgroundDrawable(getbmp(R.drawable.guide_2)); 
         
         
        
-        View view3=inflater.inflate(R.layout.viewpager_page3, null);
-        view3.setBackgroundDrawable(getbmp(R.drawable.g3)); 
+        View view3=inflater.inflate(R.layout.guide_page_3, null);
+        view3.setBackgroundDrawable(getbmp(R.drawable.guide_3)); 
         pageViews.add(view1); 
         pageViews.add(view2); 
         pageViews.add(view3); 
@@ -135,9 +140,9 @@ public class GuideActivity extends BaseActivity {
               
             //默认选中的是第一张图片，此时第一个小圆点是选中状态，其他不是 
             if(i==0){ 
-                imageViews[i].setBackgroundResource(R.drawable.ch_is_select); 
+                imageViews[i].setBackgroundResource(R.drawable.ic_select_pressed); 
             }else{ 
-                imageViews[i].setBackgroundResource(R.drawable.ch_no_select); 
+                imageViews[i].setBackgroundResource(R.drawable.ic_select_normal); 
             } 
               
             //将imageviews添加到小圆点视图组 
@@ -261,10 +266,10 @@ public class GuideActivity extends BaseActivity {
         public void onPageSelected(int position) { 
             // TODO Auto-generated method stub 
             for(int i=0;i<imageViews.length;i++){ 
-                imageViews[position].setBackgroundResource(R.drawable.ch_is_select); 
+                imageViews[position].setBackgroundResource(R.drawable.ic_select_pressed); 
                 //不是当前选中的page，其小圆点设置为未选中的状态 
                 if(position !=i){ 
-                    imageViews[i].setBackgroundResource(R.drawable.ch_no_select); 
+                    imageViews[i].setBackgroundResource(R.drawable.ic_select_normal); 
                 } 
             } 
               
@@ -343,7 +348,7 @@ public class GuideActivity extends BaseActivity {
 							Intent intent=new Intent();
 							intent.putStringArrayListExtra("user",userinfo);
 						
-							intent.setClass(GuideActivity.this, MainActivity_1.class);
+							intent.setClass(GuideActivity.this, MainActivity.class);
 							startActivity(intent);
 							
 							finish();
@@ -351,10 +356,10 @@ public class GuideActivity extends BaseActivity {
 							
 						}else{
 						
-							Toast.makeText(GuideActivity.this, b.getMsg(), Toast.LENGTH_LONG).show();
+							Toast.makeText(GuideActivity.this, b.getMsg(),Toast.LENGTH_SHORT).show();
 						}
 					}else{
-						Toast.makeText(GuideActivity.this, "服务器响应失败", Toast.LENGTH_LONG).show();
+						Toast.makeText(GuideActivity.this, "服务器响应失败", Toast.LENGTH_SHORT).show();
 						
 					}
 				}

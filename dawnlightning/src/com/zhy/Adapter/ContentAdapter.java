@@ -34,7 +34,7 @@ import com.zhy.Util.HttpConstants;
 import com.zhy.Util.LvHeightUtil;
 import com.zhy.Util.SdCardUtil;
 import com.zhy.Util.UnitTransformUtil;
-import com.zhy.view.NoScrollGridView;
+import com.zhy.View.NoScrollGridView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -169,7 +169,6 @@ public class ContentAdapter extends BaseAdapter {
 				title.tvUserName=(TextView)arg1.findViewById(R.id.userName);
 				title.tvUserAge=(TextView)arg1.findViewById(R.id.tvAge);
 				title.moodinTime=(TextView)arg1.findViewById(R.id.sendTime);
-				Log.e("keys", keys);
 				arg1.setTag(R.id.title_id,title);
 				break;
 			case 1:
@@ -177,14 +176,12 @@ public class ContentAdapter extends BaseAdapter {
 				message=new Message();
 				message.moodinContent=(TextView) arg1.findViewById(R.id.checkInfo);
 				message.subject=(TextView) arg1.findViewById(R.id.showInfo);
-				Log.e("keys", keys);
 				arg1.setTag(R.id.message_id,message);
 				break;
 			case 2:
 				arg1=layoutInflater.inflate(R.layout.item_content_pictrue,null);
 				picture=new Picture();
 				picture.moodinGridView=(NoScrollGridView) arg1.findViewById(R.id.myGridView);
-				Log.e("keys", keys);
 				arg1.setTag(R.id.pictrue_id, picture);
 				break;
 			
@@ -217,8 +214,8 @@ public class ContentAdapter extends BaseAdapter {
 			break;
 		case "正文":
 		
-			message.moodinContent.setText(dt.getContent());
-			message.subject.setText(dt.getSubject());
+			message.moodinContent.setText(dt.getContent().trim());
+			message.subject.setText(dt.getSubject().trim());
 		
 			
 			break;

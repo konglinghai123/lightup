@@ -45,6 +45,7 @@ import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 
 
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -59,6 +60,9 @@ import com.zhy.Bean.Detailed;
 import com.zhy.Bean.Pics;
 
 import com.zhy.Db.SharedPreferenceDb;
+import com.zhy.Dialog.ActionItem;
+import com.zhy.Dialog.TitlePopup;
+import com.zhy.Dialog.TitlePopup.OnItemOnClickListener;
 
 
 import com.zhy.Share.ShareModel;
@@ -68,11 +72,8 @@ import com.zhy.Util.HttpConstants;
 import com.zhy.Util.HttpUtil;
 
 import com.zhy.Util.ResultCallback;
+import com.zhy.View.TitleBar;
 
-import com.zhy.dialog.ActionItem;
-import com.zhy.dialog.TitlePopup;
-import com.zhy.dialog.TitlePopup.OnItemOnClickListener;
-import com.zhy.view.TitleBar;
 
 public class NewsContentActivity extends BaseActivity implements OnClickListener, PlatformActionListener, Callback{
 
@@ -100,7 +101,7 @@ public class NewsContentActivity extends BaseActivity implements OnClickListener
 	public void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.news_content);
+		setContentView(R.layout.activity_content);
 		initview();
 		initdata();
 		getcontent();
@@ -149,7 +150,7 @@ public class NewsContentActivity extends BaseActivity implements OnClickListener
 
 			@Override
 			public void onClick(View v) {
-				if(detailed.getComment().size()!=0){
+				if(totlenum!=0){
 				Intent i=new Intent();
 				i.setClass(context, CommentActivity.class);
 				i.putStringArrayListExtra("message", message);
@@ -219,17 +220,17 @@ public class NewsContentActivity extends BaseActivity implements OnClickListener
 					if("0".equals(b.getCode().toString().trim())){
 						
 						
-						 Toast.makeText(NewsContentActivity.this, "评论成功", Toast.LENGTH_LONG).show();
-						 totlenum=Integer.parseInt(message.get(message.size()-1))+1;
+						 Toast.makeText(NewsContentActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
+						 totlenum=totlenum+1;
 						 totalreplay.setText(String.valueOf(totlenum));
 						 
 					}else{
-						Toast.makeText(NewsContentActivity.this, "评论失败", Toast.LENGTH_LONG).show();
+						Toast.makeText(NewsContentActivity.this, "评论失败", Toast.LENGTH_SHORT).show();
 					
 					}
 				
 					}else{
-						Toast.makeText(NewsContentActivity.this, "服务器响应失败", Toast.LENGTH_LONG).show();
+						Toast.makeText(NewsContentActivity.this, "服务器响应失败", Toast.LENGTH_SHORT).show();
 						
 					}
 				
@@ -237,7 +238,7 @@ public class NewsContentActivity extends BaseActivity implements OnClickListener
 			
 			
 		});}else{
-			Toast.makeText(context, "网络连接断开", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "网络连接断开", Toast.LENGTH_SHORT).show();
 		}
 	
 	}
@@ -265,7 +266,7 @@ public class NewsContentActivity extends BaseActivity implements OnClickListener
 						detailed=new Detailed();
 						 detailed.setAge(js.getString("age"));
 						 detailed.setContent(js.getString("message"));
-						 detailed.setDatetime( TimeStamp2Date(js.getString("dateline")));
+						 detailed.setDatetime(js.getString("dateline"));
 						 detailed.setSubject(js.getString("subject"));
 						 detailed.setUid(js.getString("uid"));
 						 detailed.setUsename(js.getString("username"));
@@ -306,7 +307,7 @@ public class NewsContentActivity extends BaseActivity implements OnClickListener
 						
 					}
 				}else{
-					Toast.makeText(context, "服务器响应失败", Toast.LENGTH_LONG).show();
+					Toast.makeText(context, "服务器响应失败", Toast.LENGTH_SHORT).show();
 					 close();
 					
 					
@@ -318,7 +319,7 @@ public class NewsContentActivity extends BaseActivity implements OnClickListener
 	
 		
 		});}else{
-			Toast.makeText(context, "网络连接断开", Toast.LENGTH_LONG).show();}
+			Toast.makeText(context, "网络连接断开", Toast.LENGTH_SHORT).show();}
 		}
 	public  Bitmap decodeResource(Resources resources, int id) {  
 		  
@@ -339,19 +340,14 @@ public class NewsContentActivity extends BaseActivity implements OnClickListener
 	}  
 	
 	public void showToast(String str){
-		Toast.makeText(NewsContentActivity.this, str, Toast.LENGTH_LONG).show();
+		Toast.makeText(NewsContentActivity.this, str, Toast.LENGTH_SHORT).show();
 	}
-	@SuppressLint("SimpleDateFormat")
-	public String TimeStamp2Date(String timestampString){  
-		  Long timestamp = Long.parseLong(timestampString)*1000;  
-		  String date = new java.text.SimpleDateFormat("yyyy年MM月dd日 HH时mm分").format(new java.util.Date(timestamp));  
-		  return date;  
-		}
+	
 	
 	
 	protected void showUpdataDialog() {
 
-        final com.zhy.dialog.CustomDialogUpd.Builder builder = new com.zhy.dialog.CustomDialogUpd.Builder(context);
+        final com.zhy.Dialog.CustomDialogUpd.Builder builder = new com.zhy.Dialog.CustomDialogUpd.Builder(context);
         builder.setTitle("发表评论");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
@@ -377,7 +373,7 @@ public class NewsContentActivity extends BaseActivity implements OnClickListener
 		 Share = new ShareTool(context);
          Share.setPlatformActionListener(NewsContentActivity.this);
          ShareModel model = new ShareModel();
-         //model.setImageUrl(imageurl);
+         model.setImageUrl("https://ucqa.dawnlightning.com/capi/app/lightup_logo.png");
          model.setText(detailed.getContent());
          model.setTitle(detailed.getSubject());
          model.setUrl("https://ucqa.dawnlightning.com/capi/turn.php?a=1&b=2&c=3");
@@ -388,10 +384,11 @@ public class NewsContentActivity extends BaseActivity implements OnClickListener
 	  @Override
 	    public void onCancel(Platform arg0, int arg1)
 	    {	
-		  Log.e("Tag", "cancel");
+		 
 	        Message msg = new Message();
 	        msg.what = 0;
 	        UIHandler.sendMessage(msg, this);
+	        Share.dismiss();
 	    }
 
 	    @Override
@@ -403,6 +400,7 @@ public class NewsContentActivity extends BaseActivity implements OnClickListener
 	        msg.arg2 = action;
 	        msg.obj = plat;
 	        UIHandler.sendMessage(msg, this);
+	        Share.dismiss();
 	    }
 
 	    @Override
@@ -411,6 +409,7 @@ public class NewsContentActivity extends BaseActivity implements OnClickListener
 	        Message msg = new Message();
 	        msg.what = 1;
 	        UIHandler.sendMessage(msg, this);
+	        Share.dismiss();
 	    }
 
 	    @Override
@@ -420,9 +419,11 @@ public class NewsContentActivity extends BaseActivity implements OnClickListener
 	        if (what == 1)
 	        {
 	            Toast.makeText(this, "分享失败", Toast.LENGTH_SHORT).show();
-	        }
+	            Share.dismiss();
+	        }else{
 	       
 	            Share.dismiss();
+	        }
 	        
 	        return false;
 	    }

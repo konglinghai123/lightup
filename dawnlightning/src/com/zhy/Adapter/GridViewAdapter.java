@@ -49,7 +49,7 @@ public class GridViewAdapter extends BaseAdapter {
 		ViewHolder viewHolder;
 		if(contentView==null){
 			viewHolder=new ViewHolder();
-			contentView=layoutInflater.inflate(R.layout.gridview_item, null);
+			contentView=layoutInflater.inflate(R.layout.item_gridview, null);
 			viewHolder.imageView=(ImageView)contentView.findViewById(R.id.gridItemView);
 			contentView.setTag(viewHolder);
 		}else{

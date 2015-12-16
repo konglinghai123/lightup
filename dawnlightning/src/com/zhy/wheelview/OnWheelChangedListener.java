@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.zhy.wheelview;
+package com.zhy.Wheelview;
 
 /**
  * Wheel changed listener interface.

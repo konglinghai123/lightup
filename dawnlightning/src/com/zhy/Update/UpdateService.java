@@ -115,7 +115,7 @@ public class UpdateService extends Service {
 				notification.flags = Notification.FLAG_AUTO_CANCEL; 				 
 				notification.setLatestEventInfo(UpdateService.this,app_name, getString(R.string.down_sucess), pendingIntent);
 				//notification.setLatestEventInfo(UpdateService.this,app_name, app_name + getString(R.string.down_sucess), null);			
-				notificationManager.notify(R.layout.notification_item, notification);	
+				notificationManager.notify(R.layout.item_notification, notification);	
 				
 				/*****��װAPK******/
 				//installApk();	
@@ -209,7 +209,7 @@ public class UpdateService extends Service {
 		//notification.flags = Notification.FLAG_AUTO_CANCEL;
 		
 		 /*** �Զ���  Notification ����ʾ****/		 
-		contentView = new RemoteViews(getPackageName(),R.layout.notification_item);
+		contentView = new RemoteViews(getPackageName(),R.layout.item_notification);
 		contentView.setTextViewText(R.id.notificationTitle, app_name + getString(R.string.is_downing));
 		contentView.setTextViewText(R.id.notificationPercent, "0%");
 		
@@ -217,7 +217,7 @@ public class UpdateService extends Service {
 		notification.contentView = contentView;
 		
 		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		notificationManager.notify(R.layout.notification_item, notification);
+		notificationManager.notify(R.layout.item_notification, notification);
 	}
 
 	/***
@@ -274,7 +274,7 @@ public class UpdateService extends Service {
 				contentView.setTextViewText(R.id.notificationPercent,updateCount + "%");
 				contentView.setProgressBar(R.id.notificationProgress, 100,updateCount, false);			
 				notification.contentView = contentView;
-				notificationManager.notify(R.layout.notification_item, notification);			
+				notificationManager.notify(R.layout.item_notification, notification);			
 			}
 		}
 		if (httpURLConnection != null) {

@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.zhy.Activity.MainActivity_1;
+import com.zhy.Activity.CommentActivity;
+import com.zhy.Activity.MainActivity;
 import com.zhy.Activity.MyConsultContentActivity;
 import com.zhy.Activity.NewsContentActivity;
 
@@ -69,14 +70,14 @@ public class MyReceiver extends BroadcastReceiver {
 		
 	
 		ArrayList<String> message =new ArrayList<String>();
-		for(int i=0;i<MainActivity_1.userinfo.size();i++){
-			message.add(MainActivity_1.userinfo.get(i));
+		for(int i=0;i<MainActivity.userinfo.size();i++){
+			message.add(MainActivity.userinfo.get(i));
 		}
 		
 		message.add(id);
 		message.add(uid);
 		Intent i=new Intent();
-		i.setClass(context, NewsContentActivity.class);
+		i.setClass(context, CommentActivity.class);
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
 		i.putStringArrayListExtra("message", message);
 		context.startActivity(i);
@@ -102,15 +103,15 @@ public class MyReceiver extends BroadcastReceiver {
 	
 			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
 			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-			Intent msgIntent = new Intent( MainActivity_1.MESSAGE_RECEIVED_ACTION);
-			msgIntent.putExtra( MainActivity_1.KEY_MESSAGE, message);
+			Intent msgIntent = new Intent( MainActivity.MESSAGE_RECEIVED_ACTION);
+			msgIntent.putExtra( MainActivity.KEY_MESSAGE, message);
 			if (!ExampleUtil.isEmpty(extras)) {
 				try {
 					JSONObject extraJson = new JSONObject(extras);
 					if (null != extraJson && extraJson.length() > 0) {
 						id=extraJson.getString("id");
 						uid=extraJson.getString("uid");
-						msgIntent.putExtra( MainActivity_1.KEY_EXTRAS, extras);
+						msgIntent.putExtra( MainActivity.KEY_EXTRAS, extras);
 					}
 				} catch (JSONException e) {
 

@@ -1,4 +1,4 @@
-package com.zhy.view;
+package com.zhy.View;
 import com.dawnlightning.ucqa.R;
 
 import android.content.Context;
@@ -42,7 +42,7 @@ public class EditTextWithDel extends EditText {
 	}
 	
 	private void init() {
-		imgAble = mContext.getResources().getDrawable(R.drawable.delete);
+		//imgAble = mContext.getResources().getDrawable(R.drawable.delete);
 		addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {}

@@ -1,7 +1,11 @@
 package com.zhy.Bean;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import android.annotation.SuppressLint;
 
 public class Detailed {
 	private String uid;
@@ -14,6 +18,14 @@ public class Detailed {
 	private List<Comment> comment;
 	private String avatar_url;
 	private String name;
+	private static final long ONE_MINUTE = 60000L;  
+    private static final long ONE_HOUR = 3600000L;  
+    
+  
+    private static final String ONE_SECOND_AGO = "秒前";  
+    private static final String ONE_MINUTE_AGO = "分钟前";  
+    private static final String ONE_HOUR_AGO = "小时前";  
+    
 	public String getUid() {
 		return uid;
 	}
@@ -36,7 +48,7 @@ public class Detailed {
 		return datetime;
 	}
 	public void setDatetime(String datetime) {
-		this.datetime = datetime;
+		this.datetime = TimeStamp2Date(datetime);
 	}
 	public String getSubject() {
 		return subject;
@@ -102,6 +114,40 @@ public class Detailed {
 		this.name = name;
 	}
 	
-	
+	@SuppressLint("SimpleDateFormat")
+	public String TimeStamp2Date(String timestampString){  
+		  Long timestamp = Long.parseLong(timestampString)*1000;  
+		  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:m:s");  
+		  
+		  Date date = new java.util.Date(timestamp);
+		  long delta = new Date().getTime() - date.getTime();  
+		  if (delta < 1L * ONE_MINUTE) {  
+	          long seconds = toSeconds(delta);  
+	          return (seconds <= 0 ? 1 : seconds) + ONE_SECOND_AGO;  
+	      }  
+		  else if (delta < 45L * ONE_MINUTE) {  
+	          long minutes = toMinutes(delta);  
+	          return (minutes <= 0 ? 1 : minutes) + ONE_MINUTE_AGO;  
+	      }  
+		  else if (delta < 24L * ONE_HOUR) {  
+	          long hours = toHours(delta);  
+	          return (hours <= 0 ? 1 : hours) + ONE_HOUR_AGO;  
+	      } else {  
+	    	 
+	          return  new java.text.SimpleDateFormat("yyyy/MM/dd").format(new java.util.Date(timestamp));  
+	      }  
+	     
+	     
+		}
+	private static long toSeconds(long date) {  
+	    return date / 1000L;  
+	}  
+	private static long toMinutes(long date) {  
+	    return toSeconds(date) / 60L;  
+	}  
+
+	private static long toHours(long date) {  
+	    return toMinutes(date) / 60L;  
+	}  
 	
 }

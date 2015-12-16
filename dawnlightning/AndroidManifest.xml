@@ -91,7 +91,9 @@
         <activity
             android:name="com.zhy.Activity.GuideActivity"
             android:label="@string/app_name"
-            android:theme="@style/MyTheme" >
+            android:theme="@style/MyTheme"
+            android:screenOrientation="portrait"
+             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -102,59 +104,92 @@
           <activity
             android:name="com.zhy.Activity.LoginActivity"
             android:launchMode="singleTop"
-            android:theme="@style/MyTheme" >
+            android:theme="@style/MyTheme"
+            android:screenOrientation="portrait"
+             >
         </activity>
         <activity
             android:name="com.zhy.Activity.RegisterActivity"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+             >
         </activity>
            <activity
             android:name="com.zhy.Activity.ConsultActivity"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+             >
         </activity>
          <activity
             android:name="com.zhy.Activity.BrowseImageViewActivity"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+             >
         </activity>
         <activity
             android:name="com.zhy.Activity.NewsContentActivity"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+             >
         </activity>
          <activity
             android:name="com.zhy.Activity.UserInfoActivity"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+             >
         </activity>
         <activity
-            android:name="com.zhy.Activity.MainActivity_1"
-            android:launchMode="singleTop" >
+            android:name="com.zhy.Activity.MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+             >
+        </activity>
+          <activity
+            android:name="com.zhy.Activity.WelcomeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+             >
         </activity>
         <activity
             android:name="com.zhy.Activity.CommentActivity"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+             >
         </activity>
          <activity
             android:name="com.zhy.Activity.MyConsultActivity"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+             >
         </activity>
           <activity
             android:name="com.zhy.Activity.AboutActivity"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop" 
+            android:screenOrientation="portrait"
+            >
         </activity>
           <activity
             android:name="com.zhy.Activity.MyConsultContentActivity"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+             >
         </activity>
       
             <activity
             android:name="com.zhy.Activity.PictureActivity"
             android:launchMode="singleTop"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@android:style/Theme.Dialog"
+            android:screenOrientation="portrait"
+             >
         </activity>
        
         <activity
             android:name="com.dawnlightning.ucqa.Main"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main"
+            
+            android:screenOrientation="portrait" >
         </activity>
+        
           <!-- Required SDK核心功能-->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
@@ -283,7 +318,7 @@
             </intent-filter>
             
 			<intent-filter>
-				<data android:scheme="tencent100371282" />
+				<data android:scheme="tencent1104939201" />
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.BROWSABLE" />
 				<category android:name="android.intent.category.DEFAULT" />

@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     android:background="#ebebeb"
     android:orientation="vertical" >
- 	<com.zhy.view.TitleBar
+ 	<com.zhy.View.TitleBar
         android:id="@+id/TitleBar3"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentTop="true" >
-    </com.zhy.view.TitleBar>
+    </com.zhy.View.TitleBar>
     <RelativeLayout
         android:id="@+id/re_myinfo"
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             android:id="@+id/iv_avatar"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/default_useravatar" />
+            />
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -90,7 +90,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
-            android:src="@drawable/myconsult" />
+            android:src="@drawable/ic_myconsult" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -124,7 +124,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
-            android:src="@drawable/update" />
+            android:src="@drawable/ic_update" />
 
         <TextView
             android:id="@+id/tvupdate"
@@ -183,7 +183,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
-            android:src="@drawable/about" />
+            android:src="@drawable/ic_about" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -217,7 +217,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
-            android:src="@drawable/zhuxiaodenglu" />
+            android:src="@drawable/ic_exit" />
 
         <TextView
             android:layout_width="wrap_content"

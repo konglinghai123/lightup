@@ -57,7 +57,7 @@ public class BrowseImageViewActivity extends BaseActivity implements OnClickList
 		currentPosition=psit;
 		this.allImageUrl=allImageUrl;
 		for(int i=0;i<allImageUrl.size();i++){
-			View v=inflater.inflate(R.layout.browse_image_item, null);
+			View v=inflater.inflate(R.layout.item_browse_image, null);
 			allViewPagerView.add(v);
 		}
 	}

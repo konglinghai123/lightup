@@ -44,5 +44,9 @@ public class DbConstants {
 	public static final String KEY_SEX="KEY_SEX";
 	/*name*/
 	public static final String KEY_NAME="KEY_NAME";
+	/*update tip*/
+	public static final String KEY_UPDATESHOW="KEY_SHOW";
+	/*readmessage*/
+	public static final String KEY_READMESSAGE="KEY_READMESSAGE";
 	
 }

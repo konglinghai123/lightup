@@ -78,8 +78,8 @@ public class MainGridViewAdapter extends BaseAdapter {
 	    .build();
 		imageLoader.init(config);
 		options = new DisplayImageOptions.Builder()
-				.showStubImage(R.drawable.images)
-				.showImageOnFail(R.drawable.images).cacheInMemory().cacheOnDisc()
+				.showStubImage(R.drawable.bg_images)
+				.showImageOnFail(R.drawable.bg_images).cacheInMemory().cacheOnDisc()
 				.displayer(new RoundedBitmapDisplayer(20)).imageScaleType(ImageScaleType.IN_SAMPLE_INT)
 				.displayer(new FadeInBitmapDisplayer(300)).build();
 		
@@ -111,7 +111,7 @@ public class MainGridViewAdapter extends BaseAdapter {
 		RelativeLayout view=null;
 		final ViewHolder viewHolder;
 		if(view==null){
-			view=(RelativeLayout) layoutInflater.inflate(R.layout.main_gridview_item, null);
+			view=(RelativeLayout) layoutInflater.inflate(R.layout.item_gridview_main, null);
 			viewHolder=new ViewHolder();
 			viewHolder.imageView=(ImageView)view.findViewById(R.id.main_gridview_imageView);
 			view.setTag(viewHolder);

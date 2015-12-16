@@ -20,7 +20,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
-import com.zhy.view.ImageTouchView;
+import com.zhy.View.ImageTouchView;
 
 
 import android.app.Activity;
@@ -40,7 +40,7 @@ public class PictureActivity extends Activity{
     public void onCreate(Bundle savedInstanceState) {
     	  requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.picture);
+        setContentView(R.layout.activity_picturedisplay);
       
         myView = (ImageTouchView)findViewById(R.id.myView);
         psit=getIntent().getStringExtra("image");
@@ -63,8 +63,8 @@ public class PictureActivity extends Activity{
         	    .build();
         imageLoader.init(config);
 		options = new DisplayImageOptions.Builder()
-				.showStubImage(R.drawable.images)
-				.showImageOnFail(R.drawable.images)
+				.showStubImage(R.drawable.bg_images)
+				.showImageOnFail(R.drawable.bg_images)
 				.displayer(new RoundedBitmapDisplayer(20)).imageScaleType(ImageScaleType.EXACTLY)
 				.displayer(new FadeInBitmapDisplayer(300)).build();
 		
