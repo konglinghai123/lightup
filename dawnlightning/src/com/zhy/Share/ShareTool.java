@@ -2,11 +2,11 @@ package com.zhy.Share;
 
 import com.dawnlightning.ucqa.R;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -61,7 +61,8 @@ public class ShareTool
         this.platformActionListener = platformActionListener;
     }
 
-    public void showShareWindow()
+    @SuppressLint("InflateParams")
+	public void showShareWindow()
     {
         View view = LayoutInflater.from(context).inflate(R.layout.layout_share, null);
         GridView gridView = (GridView) view.findViewById(R.id.share_gridview);
@@ -136,37 +137,7 @@ public class ShareTool
         }
     }
 
-    /**
-     * 获取平台
-     * 
-     * @param position
-     * @return
-     */
-    private String getPlatform(int position)
-    {
-        String platform = "";
-        switch (position)
-        {
-            case 0:
-                platform = "Wechat";
-                break;
-            case 1:
-                platform = "WechatMoments";
-                break;
-            case 2:
-                platform = "QQ";
-                break;
-            case 3:
-                platform = "QZone";
-                break;
-            case 4:
-                platform = "SinaWeibo";
-                break;
-
-        }
-        return platform;
-    }
-
+   
     /**
      * 分享到QQ空间
      */

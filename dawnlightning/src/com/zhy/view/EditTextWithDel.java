@@ -1,6 +1,5 @@
 package com.zhy.View;
-import com.dawnlightning.ucqa.R;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -21,6 +20,7 @@ public class EditTextWithDel extends EditText {
 	private final static String TAG = "EditTextWithDel";
 	private Drawable imgInable;
 	private Drawable imgAble;
+	@SuppressWarnings("unused")
 	private Context mContext;
 
 	public EditTextWithDel(Context context) {
@@ -63,7 +63,8 @@ public class EditTextWithDel extends EditText {
 			setCompoundDrawablesWithIntrinsicBounds(null, null, imgAble, null);
 	}
 	
-    @Override
+    @SuppressLint("ClickableViewAccessibility")
+	@Override
     public boolean onTouchEvent(MotionEvent event) {
         if (imgAble != null && event.getAction() == MotionEvent.ACTION_UP) {
             int eventX = (int) event.getRawX();

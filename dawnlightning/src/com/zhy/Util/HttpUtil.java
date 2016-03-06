@@ -25,7 +25,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.params.ClientPNames;
+
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.params.ConnManagerParams;
 import org.apache.http.conn.scheme.PlainSocketFactory;
@@ -147,7 +147,8 @@ public class HttpUtil {
 	
 	 
 	
-	 private static DefaultHttpClient getNewHttpClient() {
+	 @SuppressWarnings("unused")
+	private static DefaultHttpClient getNewHttpClient() {
 	        try {
 	            KeyStore trustStore = KeyStore.getInstance(KeyStore
 	                    .getDefaultType());
@@ -255,7 +256,8 @@ public class HttpUtil {
 		
 	}
 	
-	 Handler myHandler=new Handler(){
+	 @SuppressLint("HandlerLeak")
+	Handler myHandler=new Handler(){
 		@Override
 		public void handleMessage(android.os.Message msg) {
 			

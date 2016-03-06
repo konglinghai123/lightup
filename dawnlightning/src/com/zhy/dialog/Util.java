@@ -1,8 +1,7 @@
 package com.zhy.Dialog;
 
 import android.content.Context;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+
 
 /**
  * @author yangyu

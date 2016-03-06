@@ -1,7 +1,5 @@
 package com.zhy.Activity;
-import java.util.List;
 
-import cn.jpush.android.api.JPushInterface;
 
 import com.zhy.Intface.BaseInterfaces;
 import com.dawnlightning.ucqa.R;

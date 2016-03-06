@@ -10,9 +10,9 @@ import org.apache.http.message.BasicNameValuePair;
 import com.alibaba.fastjson.JSON;
 import com.dawnlightning.ucqa.R;
 import com.zhy.Bean.BaseBean;
-import com.zhy.Bean.SeccodeBean;
-import com.zhy.Bean.UserBean;
-import com.zhy.Bean.UserBeanData;
+import com.zhy.Bean.SecurityCodeBean;
+import com.zhy.Bean.UserDataBean;
+import com.zhy.Bean.UserBaseBean;
 import com.zhy.Db.SharedPreferenceDb;
 import com.zhy.Util.AppUtils;
 import com.zhy.Util.HttpConstants;
@@ -53,7 +53,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,On
 
 	
 	private EditTextWithDel etSecorndpwd;
-	SeccodeBean sb;//验证码类
+	SecurityCodeBean sb;//验证码类
 	
 
 	
@@ -117,7 +117,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,On
 				if(!result.isEmpty() ){
 					BaseBean b=JSON.parseObject(result, BaseBean.class);
 					if("0".equals(b.getCode().toString().trim())){
-						sb=JSON.parseObject(b.getData(),SeccodeBean.class);
+						sb=JSON.parseObject(b.getData(),SecurityCodeBean.class);
 						
 						
 					}else{
@@ -258,9 +258,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,On
 					BaseBean b=JSON.parseObject(result, BaseBean.class);
 					if("0".equals(b.getCode())){
 						
-						UserBeanData dt=JSON.parseObject(b.getData(), UserBeanData.class);
+						UserBaseBean dt=JSON.parseObject(b.getData(), UserBaseBean.class);
 					
-						UserBean u=JSON.parseObject(dt.getSpace(),UserBean.class);
+						UserDataBean u=JSON.parseObject(dt.getSpace(),UserDataBean.class);
 						ArrayList<String> userinfo =new ArrayList<String>();
 						userinfo.add(u.getUsername());
 						userinfo.add(dt.getM_auth());

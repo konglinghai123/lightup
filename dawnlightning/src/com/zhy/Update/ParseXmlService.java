@@ -10,11 +10,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import android.content.Context;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.util.Log;
-
 public class ParseXmlService
 {
     public HashMap<String, String> parseXml(InputStream inStream) throws Exception
@@ -68,23 +63,5 @@ public class ParseXmlService
         }
         return hashMap;
     }
-    /**
-     * 获取软件版本号
-     * 
-     * @param context
-     * @return
-     */
-    private int getVersionCode(Context context)
-    {
-        int versionCode = 0;
-        try
-        {
-            // 获取软件版本号，
-            versionCode = context.getPackageManager().getPackageInfo("com.szy.update", 0).versionCode;
-        } catch (NameNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        return versionCode;
-    }
+
 }

@@ -24,6 +24,7 @@ import java.net.URL;
 import com.dawnlightning.ucqa.R;
 import com.zhy.Util.FileUtil;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -54,12 +55,9 @@ public class UpdateService extends Service {
 	private static String down_url;
 	private static final int DOWN_OK = 1;
 	private static final int DOWN_ERROR = 0;
-	
 	private String app_name;
-	
 	private NotificationManager notificationManager;
 	private Notification notification;
-	private Intent updateIntent;
 	private PendingIntent pendingIntent;
 	private RemoteViews contentView;
 
@@ -100,7 +98,10 @@ public class UpdateService extends Service {
 
 	
 	/********* update UI******/		 
+	@SuppressLint("HandlerLeak")
 	private final Handler handler = new Handler() {
+		@SuppressWarnings("deprecation")
+		@SuppressLint("HandlerLeak")
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -145,6 +146,7 @@ public class UpdateService extends Service {
 		}
 	};
 	
+	@SuppressWarnings("unused")
 	private void installApk() {
 		// TODO Auto-generated method stub
 		/*********������ɣ������װ***********/
@@ -197,6 +199,7 @@ public class UpdateService extends Service {
 	* @return    
 	* @see     UpdateService
 	*/
+	@SuppressWarnings("deprecation")
 	public void createNotification() {
 		
 		//notification = new Notification(R.drawable.dot_enable,app_name + getString(R.string.is_downing) ,System.currentTimeMillis());

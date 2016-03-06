@@ -57,7 +57,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import com.zhy.Adapter.GridViewAdapter;
 import com.zhy.Bean.BaseBean;
-import com.zhy.Bean.SendConsult;
+import com.zhy.Bean.PublicConsultBean;
 import com.zhy.Db.SharedPreferenceDb;
 import com.zhy.Frag.ConsultFrag;
 
@@ -75,7 +75,7 @@ import com.dawnlightning.ucqa.R;
 
 public class ConsultActivity extends BaseActivity {
 	private TitleBar titlebar;
-	private SendConsult content=new SendConsult();;
+	private PublicConsultBean content=new PublicConsultBean();;
 	private Spinner  bwztclassid;//症状分类
 	private Spinner  bwztvisorid;//科室分类
 	private EditText subject;
@@ -184,6 +184,7 @@ public class ConsultActivity extends BaseActivity {
 	public class SelectPopuWindow extends PopupWindow {
 
 		private Context context;
+		@SuppressWarnings("unused")
 		private int ReuestCode;
 
 		@SuppressWarnings("deprecation")

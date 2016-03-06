@@ -17,8 +17,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.dawnlightning.ucqa.R;
 import com.zhy.Adapter.MainListViewAdapter;
 import com.zhy.Bean.BaseBean;
-import com.zhy.Bean.Comment;
-import com.zhy.Bean.Detailed;
+import com.zhy.Bean.CommentBean;
+import com.zhy.Bean.DetailedBean;
 import com.zhy.Util.HttpConstants;
 import com.zhy.Util.HttpUtil;
 import com.zhy.Util.ResultCallback;
@@ -36,7 +36,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 public class CommentActivity extends Activity implements IXListViewLoadMore,IXListViewRefreshListener{
-	private Detailed detailed=new Detailed();
+	private DetailedBean detailedBean=new DetailedBean();
 	private TitleBar commenttitlebar;
 	private ArrayList<String> message;
 	private Context context;
@@ -117,13 +117,13 @@ public class CommentActivity extends Activity implements IXListViewLoadMore,IXLi
 						JSONObject j=(JSONObject) JSON.parse(b.getData());
 						JSONObject js=(JSONObject) JSON.parse(j.getString("bwzt"));
 						int i=0;
-						for(Comment comment:JSON.parseArray(js.getString("replylist"),Comment.class)){
-							detailed.getComment().add(comment);
+						for(CommentBean commentBean:JSON.parseArray(js.getString("replylist"),CommentBean.class)){
+							detailedBean.getComment().add(commentBean);
 							i++;
 						}
 						
-						totlenum=detailed.getComment().size();
-						commentadapter.setlist(detailed.getComment());
+						totlenum=detailedBean.getComment().size();
+						commentadapter.setlist(detailedBean.getComment());
 						commentadapter.notifyDataSetChanged();
 						
 						listview.stopLoadMore();
@@ -167,9 +167,9 @@ public class CommentActivity extends Activity implements IXListViewLoadMore,IXLi
 						//try{
 						JSONObject j=(JSONObject) JSON.parse(b.getData());
 						JSONObject js=(JSONObject) JSON.parse(j.getString("bwzt"));
-						detailed.setComment(JSON.parseArray(js.getString("replylist"),Comment.class));
-						totlenum=detailed.getComment().size();
-						commentadapter=new MainListViewAdapter(context,detailed.getComment());
+						detailedBean.setComment(JSON.parseArray(js.getString("replylist"),CommentBean.class));
+						totlenum=detailedBean.getComment().size();
+						commentadapter=new MainListViewAdapter(context,detailedBean.getComment());
 						listview.setAdapter(commentadapter);
 						listview.stopRefresh();
 						listview.stopLoadMore();

@@ -1,7 +1,6 @@
 package com.zhy.Activity;
 
 import com.dawnlightning.ucqa.R;
-import com.dawnlightning.ucqa.R.color;
 import com.zhy.View.TitleBar;
 
 import android.app.Activity;

@@ -3,6 +3,7 @@ package com.zhy.Bean;
 import java.io.Serializable;
 
 
+@SuppressWarnings("serial")
 public class BaseBean implements Serializable {
 
 	private String code;

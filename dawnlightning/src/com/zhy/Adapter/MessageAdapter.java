@@ -10,13 +10,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.dawnlightning.ucqa.R;
-import com.zhy.Bean.Comment;
 import com.zhy.Bean.MessageBean;
 
 public class MessageAdapter extends BaseAdapter {
 	private List<MessageBean> message;
+	@SuppressWarnings("unused")
 	private Context context;
 	private LayoutInflater layoutInflater;
 	public MessageAdapter( List<MessageBean> message,Context context){
@@ -39,7 +38,7 @@ public class MessageAdapter extends BaseAdapter {
 		// TODO 自动生成的方法存根
 		return arg0;
 	}
-	@SuppressLint("NewApi")
+	@SuppressLint({ "NewApi", "InflateParams" })
 	@SuppressWarnings("unused")
 	@Override
 	public View getView(int arg0, View contentView, ViewGroup arg2) {

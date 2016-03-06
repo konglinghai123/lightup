@@ -35,7 +35,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dawnlightning.ucqa.R;
 import com.zhy.Activity.ConsultActivity;
-import com.zhy.Activity.NewsContentActivity;
+import com.zhy.Activity.ContentActivity;
 import com.zhy.Adapter.ConsultAdapter;
 import com.zhy.Bean.BaseBean;
 import com.zhy.Bean.ConsultBean;
@@ -175,7 +175,7 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 				message.add(item.getUid());
 				message.add(item.getReplynum());
 				Intent i=new Intent();
-				i.setClass(getActivity(), NewsContentActivity.class);
+				i.setClass(getActivity(), ContentActivity.class);
 				i.putStringArrayListExtra("message", message);
 				startActivity(i);
 			
@@ -443,14 +443,7 @@ public class ConsultFrag extends Fragment implements IXListViewRefreshListener, 
 	            loadbar.show();
 	        }
 	}
-	 private void close() {
-	        if (loadbar != null) {
-	            if (loadbar.isShowing()) {
-	                loadbar.dismiss();
-	            }
-	        }
-	    }
-
+	
 	 public void getdata(int currentpage,String url,List<NameValuePair> parms){
 			if(AppUtils.checkNetwork(context)==true){
 				parms.add(new BasicNameValuePair("page",String.valueOf(currentpage)));

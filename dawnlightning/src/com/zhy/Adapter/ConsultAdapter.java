@@ -1,7 +1,7 @@
 package com.zhy.Adapter;
 
 import java.io.File;
-import java.util.ArrayList;
+
 import java.util.List;
 
 
@@ -13,16 +13,15 @@ import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.FailReason;
+
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
+
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.zhy.Bean.ConsultMessageBean;
-import com.zhy.Db.SharedPreferenceDb;
-import com.zhy.Util.HttpConstants;
+
 import com.zhy.Util.SdCardUtil;
 
 
@@ -30,20 +29,16 @@ import com.zhy.Util.SdCardUtil;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.media.ThumbnailUtils;
+
 import android.os.Build;
 import android.text.Html;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+
 import android.widget.TextView;
 
 
@@ -118,8 +113,9 @@ public class ConsultAdapter extends BaseAdapter{
 		return position;
 	}
 
+	@SuppressWarnings("static-access")
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-	@SuppressLint("NewApi")
+	@SuppressLint({ "NewApi", "InflateParams" })
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (null == convertView) {

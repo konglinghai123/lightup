@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.dawnlightning.ucqa.R;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -36,6 +37,7 @@ public class TitlePopup extends PopupWindow {
 	private final int[] mLocation = new int[2];
 	
 	//��Ļ�Ŀ�Ⱥ͸߶�
+	@SuppressWarnings("unused")
 	private int mScreenWidth,mScreenHeight;
 
 	//�ж��Ƿ���Ҫ��ӻ�����б�������
@@ -58,6 +60,8 @@ public class TitlePopup extends PopupWindow {
 		this(context, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 	}
 	
+	@SuppressLint("InflateParams")
+	@SuppressWarnings("deprecation")
 	public TitlePopup(Context context, int width, int height){
 		this.mContext = context;
 		

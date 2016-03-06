@@ -22,14 +22,13 @@ import com.mob.tools.utils.UIHandler;
 
 import com.zhy.Adapter.ContentAdapter;
 import com.zhy.Bean.BaseBean;
-import com.zhy.Bean.Comment;
-import com.zhy.Bean.Detailed;
-import com.zhy.Bean.Pics;
+import com.zhy.Bean.CommentBean;
+import com.zhy.Bean.DetailedBean;
+import com.zhy.Bean.PicsBean;
 import com.zhy.Db.SharedPreferenceDb;
 import com.zhy.Dialog.ActionItem;
 import com.zhy.Dialog.TitlePopup;
 import com.zhy.Dialog.TitlePopup.OnItemOnClickListener;
-import com.zhy.Frag.ConsultFrag;
 import com.zhy.Share.ShareModel;
 import com.zhy.Share.ShareTool;
 import com.zhy.Util.AppUtils;
@@ -69,7 +68,7 @@ public class MyConsultContentActivity extends BaseActivity implements PlatformAc
 	
 	private ArrayList<String> message;
 	private Context context;
-	private Detailed detailed;//详细
+	private DetailedBean detailedBean;//详细
 	private ListView contentlist;
 	private TextView totalreplay;
 	private ImageView write;
@@ -77,7 +76,7 @@ public class MyConsultContentActivity extends BaseActivity implements PlatformAc
 	private ImageView share;
 	private ContentAdapter contentadapter;
 	private final static String [] fileds={"开头","正文","图片"};
-	private HashMap<String,Detailed> content;
+	private HashMap<String,DetailedBean> content;
 	private TitleBar contenttitlebar;
 	private int page=1;
 	private int totlenum=0;
@@ -341,35 +340,35 @@ public class MyConsultContentActivity extends BaseActivity implements PlatformAc
 						//try{
 						JSONObject j=(JSONObject) JSON.parse(b.getData());
 						JSONObject js=(JSONObject) JSON.parse(j.getString("bwzt"));
-						detailed=new Detailed();
-						 detailed.setAge(js.getString("age"));
-						 detailed.setContent(js.getString("message"));
-						 detailed.setDatetime( js.getString("dateline"));
-						 detailed.setSubject(js.getString("subject"));
-						 detailed.setUid(js.getString("uid"));
-						 detailed.setUsename(js.getString("username"));
-						 detailed.setAvatar_url(js.getString("avatar_url"));
-						 detailed.setName(js.getString("name"));
-						 detailed.setComment(JSON.parseArray(js.getString("replylist"),Comment.class));
+						detailedBean=new DetailedBean();
+						 detailedBean.setAge(js.getString("age"));
+						 detailedBean.setContent(js.getString("message"));
+						 detailedBean.setDatetime( js.getString("dateline"));
+						 detailedBean.setSubject(js.getString("subject"));
+						 detailedBean.setUid(js.getString("uid"));
+						 detailedBean.setUsename(js.getString("username"));
+						 detailedBean.setAvatar_url(js.getString("avatar_url"));
+						 detailedBean.setName(js.getString("name"));
+						 detailedBean.setComment(JSON.parseArray(js.getString("replylist"),CommentBean.class));
 						 JSONArray jsonArray = JSONArray.parseArray(js.getString("pics")); 
-						 List<Pics> list=new ArrayList<Pics>();
+						 List<PicsBean> list=new ArrayList<PicsBean>();
 						 if(jsonArray!=null){
 						 for(int k=0;k<jsonArray.size();k++){  
 				               System.out.print(jsonArray.get(k) + "\t");  
 				               Log.e("strpic",jsonArray.get(k).toString());
 				               JSONObject objpic=(JSONObject) JSON.parse(jsonArray.get(k).toString());
 				              
-				               Pics p=new Pics( objpic.getString("picurl"),"");
+				               PicsBean p=new PicsBean( objpic.getString("picurl"),"");
 				               list.add(p);
 				           }  
 						
 						
-						 detailed.setPics(list);
+						 detailedBean.setPics(list);
 						 }
-						 content=new HashMap<String,Detailed>();
+						 content=new HashMap<String,DetailedBean>();
 						 for(int i=0;i<fileds.length;i++){
 							 Log.e("Tag",fileds[i]);
-							 content.put(fileds[i], detailed);
+							 content.put(fileds[i], detailedBean);
 						 }
 					
 						
@@ -450,8 +449,8 @@ public class MyConsultContentActivity extends BaseActivity implements PlatformAc
         Share.setPlatformActionListener(MyConsultContentActivity.this);
         ShareModel model = new ShareModel();
         model.setImageUrl("https://ucqa.dawnlightning.com/capi/app/lightup_logo.png");
-        model.setText(detailed.getContent());
-        model.setTitle(detailed.getSubject());
+        model.setText(detailedBean.getContent());
+        model.setTitle(detailedBean.getSubject());
         model.setUrl("https://ucqa.dawnlightning.com/capi/turn.php?a=1&b=2&c=3");
         Share.initShareParams(model);
         Share.showShareWindow();

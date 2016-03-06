@@ -1,9 +1,10 @@
 package com.zhy.Bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 
+
+@SuppressWarnings("serial")
 public class ConsultBean  implements Serializable {
 private	String messages;
 private int count;

@@ -7,9 +7,6 @@ import org.json.JSONObject;
 
 import com.zhy.Activity.CommentActivity;
 import com.zhy.Activity.MainActivity;
-import com.zhy.Activity.MyConsultContentActivity;
-import com.zhy.Activity.NewsContentActivity;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;

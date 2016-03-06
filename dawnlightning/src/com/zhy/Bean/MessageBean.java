@@ -59,7 +59,7 @@ public class MessageBean  {
 	
 	@Override
 	public String toString() {
-		return "Comment [author=" + author + ", name=" + name + ", message="
+		return "CommentBean [author=" + author + ", name=" + name + ", message="
 				+ message + "]";
 	}
 
@@ -68,7 +68,8 @@ public class MessageBean  {
 	@SuppressLint("SimpleDateFormat")
 	public String TimeStamp2Date(String timestampString){  
 		  Long timestamp = Long.parseLong(timestampString)*1000;  
-		  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:m:s");  
+		  @SuppressWarnings("unused")
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:m:s");  
 		  
 		  Date date = new java.util.Date(timestamp);
 		  long delta = new Date().getTime() - date.getTime();  

@@ -19,7 +19,5 @@ public class HttpStringResult implements Serializable{
 		this.msg = msg;
 	}
 	
-/*	public void setResult(String xml) {
-		this.result = Html.fromHtml(xml).toString();
-	}*/
+
 }

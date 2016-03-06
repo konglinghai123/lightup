@@ -19,8 +19,10 @@ import android.widget.ImageView;
 public class BrowseImageAdapter extends PagerAdapter {
 
 	private List<View> allImageView;
+	@SuppressWarnings("unused")
 	private Context context;
 	private List<String> imageUrl;
+	@SuppressWarnings("unused")
 	private Bitmap bitmap;
 
 

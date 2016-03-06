@@ -2,11 +2,11 @@ package com.zhy.Frag;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.List;
+
 
 import com.dawnlightning.ucqa.R;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -16,7 +16,7 @@ import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.FailReason;
+
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
@@ -27,12 +27,11 @@ import com.zhy.Activity.AboutActivity;
 import com.zhy.Activity.LoginActivity;
 import com.zhy.Activity.MyConsultActivity;
 import com.zhy.Activity.UserInfoActivity;
-import com.zhy.Adapter.TabAdapter;
 import com.zhy.Db.SharedPreferenceDb;
 import com.zhy.Update.UpdateManager;
-import com.zhy.Util.HttpConstants;
+
 import com.zhy.Util.SdCardUtil;
-import com.zhy.Util.TimeUtil;
+
 import com.zhy.View.TitleBar;
 
 
@@ -71,7 +70,6 @@ public class MainFragment extends Fragment
 	private View info;
 	private View about;
 	private View update;
-	private ImageLoaderConfiguration config; 
 	private TextView username;
 	private  SharedPreferenceDb mySharedPreferenceDb=null;
 	private UpdateManager updatemanager;
@@ -96,6 +94,7 @@ public class MainFragment extends Fragment
 		
 	}
 	
+	@SuppressLint("InflateParams")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
@@ -104,6 +103,7 @@ public class MainFragment extends Fragment
 		return view;
 	}
 
+	@SuppressLint("InflateParams")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		updatemanager=new UpdateManager(context, handler);
@@ -307,7 +307,8 @@ public class MainFragment extends Fragment
 		
 	}
 
-	  Handler handler = new Handler(){  
+	  @SuppressLint("HandlerLeak")
+	Handler handler = new Handler(){  
           
 	        @Override  
 	        public void handleMessage(Message msg) {  

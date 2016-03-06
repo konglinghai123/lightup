@@ -7,13 +7,13 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import com.alibaba.fastjson.JSON;
 import com.zhy.Bean.BaseBean;
-import com.zhy.Bean.UserBean;
-import com.zhy.Bean.UserBeanData;
+import com.zhy.Bean.UserDataBean;
+import com.zhy.Bean.UserBaseBean;
 import com.zhy.Db.SharedPreferenceDb;
 import com.zhy.Util.AppUtils;
 import com.zhy.Util.HttpConstants;
 import com.zhy.Util.HttpUtil;
-import com.zhy.Util.MoodApplication;
+
 import com.zhy.Util.ResultCallback;
 import com.zhy.View.EditTextWithDel;
 import com.zhy.View.TitleBar;
@@ -25,7 +25,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,6 +52,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	
 	private CheckBox IsSave;
 	
+	@SuppressWarnings("unused")
 	private String  CancelLogin="no";
 	
 	
@@ -213,9 +214,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 					
 					if("0".equals(b.getCode())){
 						
-						UserBeanData dt=JSON.parseObject(b.getData(), UserBeanData.class);
+						UserBaseBean dt=JSON.parseObject(b.getData(), UserBaseBean.class);
 					
-						UserBean u=JSON.parseObject(dt.getSpace(),UserBean.class);
+						UserDataBean u=JSON.parseObject(dt.getSpace(),UserDataBean.class);
 						ArrayList<String> userinfo =new ArrayList<String>();
 						userinfo.add(u.getUsername());
 						userinfo.add(dt.getM_auth());

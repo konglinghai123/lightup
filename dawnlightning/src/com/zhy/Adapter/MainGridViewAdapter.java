@@ -4,8 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
-import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
+
 
 import com.dawnlightning.ucqa.R;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -15,10 +14,10 @@ import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration.Builder;
-import com.nostra13.universalimageloader.core.assist.FailReason;
+
+
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
+
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -30,9 +29,10 @@ import com.zhy.Util.SdCardUtil;
 
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
+
 import android.media.ThumbnailUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,16 +43,19 @@ import android.widget.RelativeLayout;
 
 
 
+@SuppressLint("UseSparseArrays")
 public class MainGridViewAdapter extends BaseAdapter {
 
 	private LayoutInflater layoutInflater;
 	private List<String> allImageUrl;
+	@SuppressWarnings("unused")
 	private Context ctx;
 	private DisplayImageOptions options;
 	private ImageLoader imageLoader = ImageLoader.getInstance();
 	//暂且用bitmap加载图片
 	private HashMap<Integer,String> map=new HashMap<Integer,String>();
 	
+	@SuppressLint("UseSparseArrays")
 	public MainGridViewAdapter(Context context,List<String> allImageUrl) {
 		// TODO Auto-generated constructor stub
 		this.ctx=context;
@@ -104,7 +107,8 @@ public class MainGridViewAdapter extends BaseAdapter {
 		return arg0;
 	}
 
-	@SuppressWarnings({ "unused", "null" })
+	@SuppressLint("InflateParams")
+	@SuppressWarnings({ "unused" })
 	@Override
 	public View getView(final int arg0, View contentView, ViewGroup arg2) {
 		// TODO Auto-generated method stub

@@ -13,7 +13,7 @@ import com.zhy.Frag.MainFragment;
 import com.zhy.Frag.MessageFragment;
 import com.zhy.Frag.MyFragmentPagerAdapter;
 import com.zhy.Push.ExampleUtil;
-import com.zhy.Update.UpdateManager;
+
 import com.zhy.Util.DataCleanManager;
 import com.zhy.Util.HttpConstants;
 import com.zhy.Util.SdCardUtil;

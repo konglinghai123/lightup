@@ -127,7 +127,8 @@ public class CustomDialogUpd extends Dialog {
 		}
 
 		// 有取消按钮自定义框
-		@SuppressLint("WrongViewCast")
+		@SuppressWarnings("deprecation")
+		@SuppressLint({ "WrongViewCast", "InflateParams" })
 		public CustomDialogUpd create() {
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			// instantiate the dialog with the custom Theme

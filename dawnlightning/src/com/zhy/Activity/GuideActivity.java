@@ -3,7 +3,7 @@ package com.zhy.Activity;
 import android.annotation.SuppressLint;
 
 import android.os.Bundle;
-import android.os.Handler;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,8 +18,8 @@ import cn.jpush.android.api.JPushInterface;
 import com.alibaba.fastjson.JSON;
 import com.dawnlightning.ucqa.R;
 import com.zhy.Bean.BaseBean;
-import com.zhy.Bean.UserBean;
-import com.zhy.Bean.UserBeanData;
+import com.zhy.Bean.UserDataBean;
+import com.zhy.Bean.UserBaseBean;
 import com.zhy.Db.SharedPreferenceDb;
 import com.zhy.Util.HttpConstants;
 import com.zhy.Util.HttpUtil;
@@ -65,7 +65,8 @@ public class GuideActivity extends BaseActivity {
   
     
     /** Called when the activity is first created. */
-    @SuppressLint({ "InflateParams", "NewApi" })
+    @SuppressWarnings("deprecation")
+	@SuppressLint({ "InflateParams", "NewApi" })
 	@Override
     public void onCreate(Bundle savedInstanceState) { 
         super.onCreate(savedInstanceState); 
@@ -330,9 +331,9 @@ public class GuideActivity extends BaseActivity {
 						
 						if("0".equals(b.getCode())){
 							
-							UserBeanData dt=JSON.parseObject(b.getData(), UserBeanData.class);
+							UserBaseBean dt=JSON.parseObject(b.getData(), UserBaseBean.class);
 						
-							UserBean u=JSON.parseObject(dt.getSpace(),UserBean.class);
+							UserDataBean u=JSON.parseObject(dt.getSpace(),UserDataBean.class);
 							ArrayList<String> userinfo =new ArrayList<String>();
 							userinfo.add(u.getUsername());
 							userinfo.add(dt.getM_auth());

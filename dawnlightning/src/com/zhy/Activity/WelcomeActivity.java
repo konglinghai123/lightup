@@ -9,8 +9,8 @@ import org.apache.http.message.BasicNameValuePair;
 import com.alibaba.fastjson.JSON;
 import com.dawnlightning.ucqa.R;
 import com.zhy.Bean.BaseBean;
-import com.zhy.Bean.UserBean;
-import com.zhy.Bean.UserBeanData;
+import com.zhy.Bean.UserDataBean;
+import com.zhy.Bean.UserBaseBean;
 import com.zhy.Db.SharedPreferenceDb;
 import com.zhy.Util.HttpConstants;
 import com.zhy.Util.HttpUtil;
@@ -62,9 +62,9 @@ public class WelcomeActivity extends Activity{
 						
 						if("0".equals(b.getCode())){
 							
-							UserBeanData dt=JSON.parseObject(b.getData(), UserBeanData.class);
+							UserBaseBean dt=JSON.parseObject(b.getData(), UserBaseBean.class);
 						
-							UserBean u=JSON.parseObject(dt.getSpace(),UserBean.class);
+							UserDataBean u=JSON.parseObject(dt.getSpace(),UserDataBean.class);
 							ArrayList<String> userinfo =new ArrayList<String>();
 							userinfo.add(u.getUsername());
 							userinfo.add(dt.getM_auth());

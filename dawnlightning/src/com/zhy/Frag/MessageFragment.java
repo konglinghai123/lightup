@@ -1,8 +1,6 @@
 package com.zhy.Frag;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,55 +16,36 @@ import org.apache.http.message.BasicNameValuePair;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dawnlightning.ucqa.R;
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
-import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.nostra13.universalimageloader.utils.StorageUtils;
-import com.zhy.Activity.AboutActivity;
+
+
 import com.zhy.Activity.CommentActivity;
-import com.zhy.Activity.LoginActivity;
-import com.zhy.Activity.MyConsultActivity;
-import com.zhy.Activity.NewsContentActivity;
-import com.zhy.Activity.UserInfoActivity;
-import com.zhy.Adapter.MainListViewAdapter;
+
 import com.zhy.Adapter.MessageAdapter;
 import com.zhy.Bean.BaseBean;
-import com.zhy.Bean.Comment;
-import com.zhy.Bean.ConsultMessageBean;
+
 import com.zhy.Bean.MessageBean;
 import com.zhy.Db.SharedPreferenceDb;
 import com.zhy.Util.HttpConstants;
 import com.zhy.Util.HttpUtil;
 import com.zhy.Util.ResultCallback;
-import com.zhy.Util.SdCardUtil;
+
 import com.zhy.View.TitleBar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.KeyEvent;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
+
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,7 +53,7 @@ public class MessageFragment extends Fragment implements IXListViewLoadMore,IXLi
 
 	private Context context;
 	private ArrayList<String> userinfo;
-	private TitleBar titlebar;
+
 	private TextView tvcount;
 	private  SharedPreferenceDb mySharedPreferenceDb=null;
 	private int page=1;
@@ -82,7 +61,8 @@ public class MessageFragment extends Fragment implements IXListViewLoadMore,IXLi
 	private MessageAdapter messageadapter;
 	private TitleBar messagetitlebar;
 	private int messagecount=0;
-	private LayoutInflater inflater;
+	@SuppressWarnings("unused")
+	private LayoutInflater inflater=null;
 	private List<MessageBean> messages=new ArrayList<MessageBean>();
 	private static int count;
 	public MessageFragment(Context context,ArrayList<String> userinfo,TextView count)
@@ -115,6 +95,7 @@ public class MessageFragment extends Fragment implements IXListViewLoadMore,IXLi
 		
 	}
 	
+	@SuppressLint("InflateParams")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
@@ -217,7 +198,6 @@ public class MessageFragment extends Fragment implements IXListViewLoadMore,IXLi
 		allP.add(new BasicNameValuePair("page",String.valueOf(page)));
 		new	HttpUtil().doPost(HttpConstants.HTTP_UNREAD_MESSAGE, allP, new ResultCallback(){
 
-			@SuppressWarnings("unused")
 			@SuppressLint("NewApi")
 			@Override
 			public void getReslt(String result) {

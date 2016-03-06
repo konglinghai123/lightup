@@ -3,7 +3,7 @@ package com.zhy.Adapter;
 import java.util.List;
 
 import com.dawnlightning.ucqa.R;
-import com.zhy.Bean.Comment;
+import com.zhy.Bean.CommentBean;
 
 
 import android.annotation.SuppressLint;
@@ -19,12 +19,13 @@ import android.widget.TextView;
 
 public class MainListViewAdapter extends BaseAdapter {
 
+	@SuppressWarnings("unused")
 	private Context context;
 	private LayoutInflater layoutInflater;
-	private List<Comment> allComment;
+	private List<CommentBean> allComment;
 	
 	
-	public MainListViewAdapter(Context context,List<Comment> allComments) {
+	public MainListViewAdapter(Context context,List<CommentBean> allComments) {
 		// TODO Auto-generated constructor stub
 		this.context=context;
 		this.allComment=allComments;
@@ -52,7 +53,7 @@ public class MainListViewAdapter extends BaseAdapter {
 		return arg0;
 	}
 
-	@SuppressLint("NewApi")
+	@SuppressLint({ "NewApi", "InflateParams" })
 	@SuppressWarnings("unused")
 	@Override
 	public View getView(int arg0, View contentView, ViewGroup arg2) {
@@ -80,7 +81,7 @@ public class MainListViewAdapter extends BaseAdapter {
 		}
 		return layout;
 	}
-	public void setlist(List<Comment> allComments){
+	public void setlist(List<CommentBean> allComments){
 		this.allComment=allComments;
 	}
 	private static class ViewHolder{

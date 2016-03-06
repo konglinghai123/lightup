@@ -1,89 +1,58 @@
 package com.zhy.Adapter;
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import me.maxwin.view.IXListViewLoadMore;
-import me.maxwin.view.XListView;
-
 import com.dawnlightning.ucqa.R;
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.FailReason;
+
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
+
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.nostra13.universalimageloader.utils.StorageUtils;
-
-
-import com.zhy.Activity.NewsContentActivity;
 import com.zhy.Activity.PictureActivity;
-
-import com.zhy.Bean.Detailed;
-import com.zhy.Bean.Pics;
-
+import com.zhy.Bean.DetailedBean;
+import com.zhy.Bean.PicsBean;
 import com.zhy.Util.HttpConstants;
-import com.zhy.Util.LvHeightUtil;
-import com.zhy.Util.SdCardUtil;
 import com.zhy.Util.UnitTransformUtil;
 import com.zhy.View.NoScrollGridView;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.ThumbnailUtils;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
-
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 @SuppressLint({ "ViewHolder", "InflateParams" })
 public class ContentAdapter extends BaseAdapter {
 	private Context context;
-	private HashMap<String,Detailed> content;
+	private HashMap<String,DetailedBean> content;
 	private LayoutInflater layoutInflater;
 	private Message message;
 	private Picture picture;
-	
 	private Title title;
 	private ArrayList<String> piclsit;
-	private  List<com.zhy.Bean.Comment> comList=new ArrayList();
-	private MainListViewAdapter pinglunAdapter;
 	private MainGridViewAdapter mainGridViewAdapter;
 	private final static String [] fileds={"开头","正文","图片"};
-	private Boolean IsShow=false;
 	private ImageLoader imageLoader = ImageLoader.getInstance();
 	private DisplayImageOptions options;
-	private View listviewhead;
-	private IXListViewLoadMore loadmorelisten;
-	private OnClickListener pinglunlistener;
-	private OnClickListener fengxianglistener;
-	public ContentAdapter(Context context,HashMap<String,Detailed> content){
+	public ContentAdapter(Context context,HashMap<String,DetailedBean> content){
 		this.context=context;
 		this.content=content;
 		layoutInflater = (LayoutInflater) LayoutInflater.from(context);
@@ -153,12 +122,13 @@ public class ContentAdapter extends BaseAdapter {
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	@SuppressLint("NewApi")
 	@Override
 	public View getView(int arg0, View arg1, ViewGroup arg2) {
 		String keys=fileds[arg0];
 		Log.e("arg0", String.valueOf(arg0));
-		Detailed dt=content.get(keys);
+		DetailedBean dt=content.get(keys);
 		//if (null == arg1) {
 			switch(arg0){
 
@@ -222,7 +192,7 @@ public class ContentAdapter extends BaseAdapter {
 		case "图片":
 			if(dt.getPics()!=null){
 				piclsit=new ArrayList();
-				for(Pics p:dt.getPics()){
+				for(PicsBean p:dt.getPics()){
 					
 					piclsit.add(HttpConstants.HTTP_IP+p.getUrl());
 				

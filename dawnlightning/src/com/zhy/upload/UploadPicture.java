@@ -3,18 +3,15 @@ package com.zhy.Upload;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -24,14 +21,11 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-
 import com.zhy.Util.HttpUtil;
 import com.zhy.Util.ResultCallback;
-
-import android.os.AsyncTask;
+import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -49,11 +43,13 @@ public class UploadPicture  {
 	public static final String please_check_network= "网络未连接";
 	public ResultCallback resultCallback=new ResultCallback() {
 		
+		@SuppressLint("HandlerLeak")
 		@Override
 		public void getReslt(String result) {
 			// TODO Auto-generated method stub
 		}
 	};
+	@SuppressLint("HandlerLeak")
 	Handler myHandler=new Handler(){
 		@Override
 		public void handleMessage(android.os.Message msg) {
@@ -69,6 +65,7 @@ public class UploadPicture  {
 	public void PicPost(){
 		new Thread(new Runnable() {
 		
+		@SuppressLint("NewApi")
 		@Override
 		public void run() {
 		
@@ -124,7 +121,7 @@ public class UploadPicture  {
 				Log.i("TAG", "post总字节数:"+entity.getContentLength());
 				
 				HttpResponse response = client.execute(httpPost);
-				HttpEntity responseEntity = response.getEntity();
+			
 				
 				if(response.getStatusLine().getStatusCode()==200){
 					String result = EntityUtils.toString(response.getEntity());
